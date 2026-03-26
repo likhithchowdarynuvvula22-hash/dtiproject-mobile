@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Smart Inbox | Privacy Activater</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind Config -->
+    <script>
+        window.tailwind = window.tailwind || {};
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#10131a", "surface-container": "#1d2026", "on-surface": "#e1e2eb",
+                        "on-surface-variant": "#c4c6cc", "primary": "#00daf3", "on-primary": "#00363d",
+                        "secondary": "#bbc6e2", "outline-variant": "#44474c", "background": "#10131a",
+                        "error": "#ffb4ab", "tertiary": "#4edea3"
+                    },
+                    fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <style>
+        /* Fallback Styles */
+        :root { --surface: #10131a; --on-surface: #e1e2eb; --primary: #00daf3; }
+        body { background-color: var(--surface) !important; color: var(--on-surface) !important; font-family: 'Inter', sans-serif; margin: 0; }
+        h1, h2, h3, .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .text-primary { color: var(--primary) !important; }
+        .glass-panel { background: rgba(50, 53, 60, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .obsidian-gradient { background: linear-gradient(135deg, #00daf3 0%, #0090a1 100%); }
+        .radial-glow { background: radial-gradient(circle at 50% 50%, rgba(0, 218, 243, 0.08) 0%, transparent 70%); }
+        .blur-pill { filter: blur(8px); user-select: none; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        .animate-shake { animation: shake 0.2s ease-in-out infinite; }
+        .category-tab.active { color: #00daf3; border-bottom: 2px solid #00daf3; background: rgba(0, 218, 243, 0.05); }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 min-h-screen pb-24 relative overflow-x-hidden">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-outline-variant/10 px-6 pt-4 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+            <h1 class="font-headline font-bold text-lg tracking-tight">Smart Inbox</h1>
+            <div class="flex items-center gap-3">
+                <button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center">
+                    <span class="material-symbols-outlined text-on-surface-variant text-sm">search</span>
+                </button>
+                <button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center">
+                    <span class="material-symbols-outlined text-on-surface-variant text-sm">filter_list</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex items-center justify-between overflow-x-auto no-scrollbar pb-2 px-1">
+            <button onclick="switchTab('P')" class="category-tab active flex flex-col items-center gap-1 min-w-[60px] pb-2 transition-all" id="tabP">
+                <span class="text-xs font-bold uppercase tracking-tighter">Promo</span>
+                <span class="text-[10px] text-on-surface-variant">42</span>
+            </button>
+            <button onclick="switchTab('S')" class="category-tab flex flex-col items-center gap-1 min-w-[60px] pb-2 transition-all" id="tabS">
+                <span class="text-xs font-bold uppercase tracking-tighter">Service</span>
+                <span class="text-[10px] text-on-surface-variant">15</span>
+            </button>
+            <button onclick="switchTab('T')" class="category-tab flex flex-col items-center gap-1 min-w-[60px] pb-2 transition-all relative" id="tabT">
+                <span class="text-xs font-bold uppercase tracking-tighter">Bank / OTP</span>
+                <span class="text-[10px] text-on-surface-variant">3</span>
+                <div class="absolute top-0 right-0 w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></div>
+            </button>
+            <button onclick="switchTab('G')" class="category-tab flex flex-col items-center gap-1 min-w-[60px] pb-2 transition-all relative" id="tabG">
+                <span class="text-xs font-bold uppercase tracking-tighter">Gov</span>
+                <span class="text-[10px] text-on-surface-variant">1</span>
+                <div class="absolute top-0 right-0 w-1.5 h-1.5 bg-tertiary rounded-full animate-pulse"></div>
+            </button>
+        </div>
+    </header>
+
+    <main class="px-4 py-6">
+        <div id="messageList" class="space-y-4">
+            <!-- Messages will be injected here via switchTab() -->
+        </div>
+
+        <!-- Phishing Alert Overlay (Hidden) -->
+        <div id="phishingOverlay" class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-md p-6">
+            <div class="bg-surface border-2 border-error rounded-3xl p-8 max-w-sm w-full text-center animate-shake">
+                <div class="w-16 h-16 mx-auto bg-error/10 rounded-full flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-error text-3xl">phishing</span>
+                </div>
+                <h2 class="text-2xl font-bold text-error mb-2">Threat Detected!</h2>
+                <p class="text-xs text-on-surface-variant mb-8 leading-relaxed">This message contains a known phishing link or suspicious keyword patterns detected by our AI brain.</p>
+                <div class="space-y-3">
+                    <button onclick="closeOverlay()" class="w-full bg-error py-3.5 rounded-xl font-bold text-white transition-all active:scale-95">Block Sender & Report</button>
+                    <button onclick="closeOverlay()" class="w-full text-on-surface-variant text-xs hover:text-primary transition-colors">I trust this sender (Ignore)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Biometric Lock Screen (Hidden) -->
+        <div id="biometricLock" class="hidden fixed inset-0 z-[60] glass-panel flex flex-col items-center justify-center p-8 animate-fade-in-up">
+            <div class="w-24 h-24 obsidian-gradient rounded-3xl flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(0,218,243,0.3)]">
+                <span class="material-symbols-outlined text-white text-5xl">fingerprint</span>
+            </div>
+            <h2 class="font-headline text-2xl font-bold mb-2">Biometric Verification</h2>
+            <p class="text-sm text-on-surface-variant text-center mb-12">Protected content requires authentication to view.</p>
+            <div class="w-full max-w-[240px] grid grid-cols-3 gap-6 mb-12">
+                <!-- Simple PIN pad representation -->
+                <div class="w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center">1</div>
+                <div class="w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center">2</div>
+                <div class="w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center">3</div>
+                <!-- ... -->
+            </div>
+            <button onclick="unlockContent()" class="text-primary font-bold text-sm tracking-widest uppercase">Use Device PIN</button>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 w-full h-20 glass-panel border-t border-outline-variant/10 px-8 flex items-center justify-between z-50">
+        <a href="dashboard.html" class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span class="text-[10px] font-bold">Home</span>
+        </a>
+        <a href="sms-inbox.html" class="flex flex-col items-center gap-1 text-primary transition-colors">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+            <span class="text-[10px] font-bold">Inbox</span>
+        </a>
+        <a href="call-forwarding.html" class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">dock_to_left</span>
+            <span class="text-[10px] font-bold">USSD</span>
+        </a>
+        <a href="app-lock.html" class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="text-[10px] font-bold">Settings</span>
+        </a>
+    </nav>
+
+    <script>
+        let messages = { 'P': [], 'S': [], 'T': [], 'G': [] };
+        
+        async function fetchMessages() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/user/messages', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.status === 401) {
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                const data = await res.json();
+                
+                messages = { 'P': [], 'S': [], 'T': [], 'G': [] };
+                data.forEach(m => {
+                    const tagMap = {'P': 'Promo', 'S': 'Service', 'T': 'Transaction', 'G': 'Gov'};
+                    const msgObj = {
+                        sender: m.sender,
+                        body: m.body,
+                        time: new Date(m.received_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                        tags: [tagMap[m.category]],
+                        locked: m.is_locked,
+                        phishing: m.is_phishing
+                    };
+                    if (messages[m.category]) {
+                        messages[m.category].push(msgObj);
+                    }
+                });
+                
+                // Update Badge Counts
+                document.querySelector('#tabP span:last-child').textContent = messages['P'].length;
+                document.querySelector('#tabS span:last-child').textContent = messages['S'].length;
+                document.querySelector('#tabT span:nth-child(2)').textContent = messages['T'].length;
+                document.querySelector('#tabG span:nth-child(2)').textContent = messages['G'].length;
+
+                switchTab('P');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function switchTab(cat) {
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab' + cat).classList.add('active');
+
+            const list = document.getElementById('messageList');
+            const catMsgs = messages[cat] || [];
+            if (catMsgs.length === 0) {
+                list.innerHTML = '<div class="text-center text-on-surface-variant text-sm py-10">No messages in this category.</div>';
+                return;
+            }
+
+            list.innerHTML = catMsgs.map(m => `
+                <div class="glass-panel border border-outline-variant/10 rounded-2xl p-5 hover:border-primary/20 transition-all cursor-pointer relative overflow-hidden active:scale-95" onclick="${m.phishing ? 'showPhishing()' : m.locked ? 'showLock()' : ''}">
+                    ${m.phishing ? '<div class="absolute top-0 right-0 bg-error/90 text-white text-[9px] font-bold px-3 py-1 rounded-bl-lg uppercase">Suspicious Link</div>' : ''}
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xs font-bold font-headline tracking-wide ${m.phishing ? 'text-error' : 'text-primary'}">${m.sender}</span>
+                        <span class="text-[9px] text-outline">${m.time}</span>
+                    </div>
+                    <p class="text-xs leading-relaxed ${m.locked ? 'blur-pill text-transparent' : 'text-on-surface-variant'}">
+                        ${m.locked ? 'This content is sensitive and has been encrypted for your protection. Verify identity to view.' : m.body}
+                    </p>
+                    <div class="flex gap-2 mt-4">
+                        ${m.tags.map(t => `<span class="text-[8px] bg-outline-variant/10 text-outline px-2 py-0.5 rounded uppercase font-bold tracking-widest border border-outline-variant/10">${t}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showPhishing() { document.getElementById('phishingOverlay').classList.remove('hidden'); }
+        function closeOverlay() { document.getElementById('phishingOverlay').classList.add('hidden'); }
+        function showLock() { document.getElementById('biometricLock').classList.remove('hidden'); }
+        function unlockContent() { document.getElementById('biometricLock').classList.add('hidden'); switchTab('T'); } // Demo behavior
+
+        document.addEventListener('DOMContentLoaded', fetchMessages);
+    </script>
+</body>
+</html>

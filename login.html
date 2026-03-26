@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Log In | Privacy Activater</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind Config -->
+    <script>
+        window.tailwind = window.tailwind || {};
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#10131a", "surface-container": "#1d2026", "on-surface": "#e1e2eb",
+                        "on-surface-variant": "#c4c6cc", "primary": "#00daf3", "on-primary": "#00363d",
+                        "secondary": "#bbc6e2", "outline-variant": "#44474c", "background": "#10131a",
+                    },
+                    fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <style>
+        /* Fallback Styles */
+        :root { --surface: #10131a; --on-surface: #e1e2eb; --primary: #00daf3; }
+        body { background-color: var(--surface) !important; color: var(--on-surface) !important; font-family: 'Inter', sans-serif; margin: 0; }
+        h1, h2, h3, .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .text-primary { color: var(--primary) !important; }
+        .glass-panel { background: rgba(50, 53, 60, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .obsidian-gradient { background: linear-gradient(135deg, #00daf3 0%, #0090a1 100%); }
+        .radial-glow { background: radial-gradient(circle at 50% 50%, rgba(0, 218, 243, 0.08) 0%, transparent 70%); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 min-h-screen flex items-center justify-center relative overflow-hidden">
+    <!-- Background effects -->
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] radial-glow -z-10 opacity-60"></div>
+    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] radial-glow -z-10 opacity-40"></div>
+
+    <div class="w-full max-w-md mx-auto px-6 py-12">
+        <!-- Logo -->
+        <div class="text-center mb-10 animate-fade-in-up">
+            <a href="landingpage.html" class="inline-flex items-center gap-3 mb-6 group">
+                <div class="w-12 h-12 obsidian-gradient rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(0,218,243,0.2)] group-hover:shadow-[0_0_30px_rgba(0,218,243,0.3)] transition-all">
+                    <span class="material-symbols-outlined text-white text-2xl" style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+                </div>
+                <span class="text-xl font-bold tracking-tighter text-primary font-headline">Privacy Activater</span>
+            </a>
+            <h1 class="font-headline text-3xl font-bold tracking-tight mb-2">Welcome Back</h1>
+            <p class="text-on-surface-variant text-sm">Sign in to your secure workspace.</p>
+        </div>
+
+        <!-- Log In Form -->
+        <div id="loginForm" class="glass-panel border border-outline-variant/15 rounded-2xl p-8 animate-fade-in-up" style="animation-delay: 0.1s;">
+            <!-- Security Hint -->
+            <div class="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-8">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="material-symbols-outlined text-primary text-sm">security_update_good</span>
+                    <span class="text-[10px] font-bold text-primary uppercase tracking-tighter">Secure Login Protocol</span>
+                </div>
+                <p class="text-[11px] text-on-surface-variant leading-relaxed">
+                    Authentication codes are delivered <span class="text-primary font-bold">ONLY to your registered email</span>. This bypasses potential SMS-interception threats on your device.
+                </p>
+            </div>
+
+            <!-- Email Input Step -->
+            <div id="emailStep" class="space-y-6">
+                <div>
+                    <label class="block text-xs font-medium text-secondary uppercase tracking-wider mb-2" for="loginEmail">Email Address</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">mail</span>
+                        <input id="loginEmail" type="email" placeholder="you@example.com"
+                            class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg pl-10 pr-4 py-3 text-sm focus:border-primary focus:ring-0 outline-none transition-all placeholder:text-outline" />
+                    </div>
+                </div>
+                <button onclick="handleLoginRequest()"
+                    class="w-full obsidian-gradient py-3.5 rounded-lg font-bold text-on-primary-fixed hover:shadow-[0_0_25px_rgba(0,218,243,0.3)] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-lg">login</span>
+                    Get Login Code
+                </button>
+            </div>
+
+            <!-- OTP Step -->
+            <div id="otpStep" class="hidden space-y-6">
+                <div class="text-center">
+                    <h3 class="font-headline text-lg font-bold mb-1">Verify identity</h3>
+                    <p class="text-xs text-on-surface-variant">Enter the 6-digit code sent to your email.</p>
+                </div>
+                <div class="flex gap-2 justify-center" id="otpContainer">
+                    <input type="text" maxlength="1" class="w-10 h-12 bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-center text-xl font-bold focus:border-primary focus:ring-0 outline-none transition-all otp-input" />
+                    <input type="text" maxlength="1" class="w-10 h-12 bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-center text-xl font-bold focus:border-primary focus:ring-0 outline-none transition-all otp-input" />
+                    <input type="text" maxlength="1" class="w-10 h-12 bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-center text-xl font-bold focus:border-primary focus:ring-0 outline-none transition-all otp-input" />
+                    <div class="flex items-center text-outline">—</div>
+                    <input type="text" maxlength="1" class="w-10 h-12 bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-center text-xl font-bold focus:border-primary focus:ring-0 outline-none transition-all otp-input" />
+                    <input type="text" maxlength="1" class="w-10 h-12 bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-center text-xl font-bold focus:border-primary focus:ring-0 outline-none transition-all otp-input" />
+                    <input type="text" maxlength="1" class="w-10 h-12 bg-surface-container-lowest border border-outline-variant/30 rounded-lg text-center text-xl font-bold focus:border-primary focus:ring-0 outline-none transition-all otp-input" />
+                </div>
+                <button onclick="verifyLoginOtp()"
+                    class="w-full obsidian-gradient py-3.5 rounded-lg font-bold text-on-primary-fixed hover:shadow-[0_0_25px_rgba(0,218,243,0.3)] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-lg">verified_user</span>
+                    Verify & Login
+                </button>
+                <button onclick="backToEmail()" class="w-full text-xs text-on-surface-variant hover:text-primary transition-colors">Wrong email? Go back</button>
+            </div>
+        </div>
+
+        <!-- Sign Up Prompt -->
+        <div class="text-center mt-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+            <p class="text-sm text-on-surface-variant">
+                New to Privacy Activater?
+                <a href="signup.html" class="text-primary font-semibold hover:underline">Create Account</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const otpInputs = document.querySelectorAll('.otp-input');
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < otpInputs.length - 1) otpInputs[index + 1].focus();
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) otpInputs[index - 1].focus();
+            });
+        });
+
+        function handleLoginRequest() {
+            const email = document.getElementById('loginEmail').value;
+            if (!email) { alert('Please enter your email.'); return; }
+
+            const btn = document.querySelector('#emailStep button');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined text-lg animate-spin">sync</span> Sending...';
+            btn.disabled = true;
+
+            fetch('http://127.0.0.1:8000/api/auth/otp/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, purpose: 'LOGIN' })
+            }).then(res => res.json()).then(data => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    if (data.delivery === 'dev_console' && data.otp_preview) {
+                        alert('Dev mode OTP: ' + data.otp_preview);
+                    }
+                    document.getElementById('emailStep').classList.add('hidden');
+                    document.getElementById('otpStep').classList.remove('hidden');
+                    otpInputs[0].focus();
+                }
+            }).catch(err => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                alert('Connection error');
+            });
+        }
+
+        function backToEmail() {
+            document.getElementById('otpStep').classList.add('hidden');
+            document.getElementById('emailStep').classList.remove('hidden');
+        }
+
+        function verifyLoginOtp() {
+            const email = document.getElementById('loginEmail').value;
+            const otp = Array.from(otpInputs).map(i => i.value).join('');
+            if (otp.length < 6) { alert('Please enter the complete 6-digit OTP.'); return; }
+
+            const btn = document.querySelector('#otpStep button');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined text-lg animate-spin">sync</span> Verifying...';
+            btn.disabled = true;
+
+            fetch('http://127.0.0.1:8000/api/auth/otp/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, otp, purpose: 'LOGIN' })
+            }).then(res => res.json()).then(data => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    localStorage.setItem('token', data.token);
+                    window.location.href = 'dashboard.html';
+                }
+            }).catch(err => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                alert('Connection error');
+            });
+        }
+    </script>
+</body>
+</html>

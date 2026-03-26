@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Privacy Activater | Secure Intelligence</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind Config (Loaded before script for robustness) -->
+    <script>
+        window.tailwind = window.tailwind || {};
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-surface": "#e1e2eb", "secondary": "#bbc6e2", "secondary-fixed-dim": "#bbc6e2",
+                        "surface-bright": "#363940", "outline": "#8e9196", "on-background": "#e1e2eb",
+                        "surface-tint": "#00daf3", "inverse-on-surface": "#2e3037", "surface-variant": "#32353c",
+                        "on-secondary-fixed": "#101b30", "primary": "#00daf3", "secondary-fixed": "#d7e2ff",
+                        "surface-container-highest": "#32353c", "on-primary-fixed-variant": "#004f58",
+                        "primary-container": "#001e22", "on-error": "#690005", "on-primary-fixed": "#001f24",
+                        "on-error-container": "#ffdad6", "on-surface-variant": "#c4c6cc", "on-surface": "#e1e2eb",
+                        "on-primary-container": "#0090a1", "surface-container-lowest": "#0b0e14",
+                        "on-tertiary-fixed": "#002113", "surface-container-low": "#191c22", "background": "#10131a",
+                        "on-secondary-container": "#adb8d3", "surface-dim": "#10131a", "primary-fixed": "#9cf0ff",
+                        "tertiary-fixed": "#6ffbbe", "outline-variant": "#44474c", "on-tertiary-container": "#009567",
+                        "on-primary": "#00363d", "on-secondary": "#263046", "inverse-primary": "#006875",
+                        "surface-container-high": "#272a31", "surface": "#10131a", "primary-fixed-dim": "#00daf3",
+                        "surface-container": "#1d2026", "tertiary": "#4edea3", "tertiary-container": "#001f12",
+                        "on-tertiary": "#003824", "on-tertiary-fixed-variant": "#005236", "secondary-container": "#3e4960",
+                        "error-container": "#93000a", "tertiary-fixed-dim": "#4edea3", "on-secondary-fixed-variant": "#3c475d",
+                        "error": "#ffb4ab"
+                    },
+                    fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <style>
+        /* Fallback Styles (in case Tailwind CDN fails) */
+        :root {
+            --surface: #10131a;
+            --on-surface: #e1e2eb;
+            --primary: #00daf3;
+        }
+        body {
+            background-color: var(--surface) !important;
+            color: var(--on-surface) !important;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+        }
+        h1, h2, h3, .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .text-primary { color: var(--primary) !important; }
+
+        /* Custom UI Elements */
+        .glass-panel {
+            background: rgba(50, 53, 60, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .obsidian-gradient {
+            background: linear-gradient(135deg, #00daf3 0%, #0090a1 100%);
+        }
+
+        .radial-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 218, 243, 0.08) 0%, transparent 70%);
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30">
+    <!-- TopAppBar Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-[#10131a]/60 backdrop-blur-xl border-b border-slate-800/15">
+        <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+            <div class="text-xl font-bold tracking-tighter text-cyan-400 font-['Space_Grotesk']">
+                Privacy Activater
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="text-cyan-400 font-bold border-b-2 border-cyan-400 pb-1 font-['Space_Grotesk'] tracking-tight transition-all"
+                    href="#">Home</a>
+                <a class="text-slate-400 font-medium hover:text-cyan-300 transition-colors duration-200 font-['Space_Grotesk'] tracking-tight"
+                    href="#threat">The Threat</a>
+                <a class="text-slate-400 font-medium hover:text-cyan-300 transition-colors duration-200 font-['Space_Grotesk'] tracking-tight"
+                    href="#features">Features</a>
+                <a class="text-slate-400 font-medium hover:text-cyan-300 transition-colors duration-200 font-['Space_Grotesk'] tracking-tight"
+                    href="#faq">FAQ</a>
+            </div>
+            <a href="signup.html"
+                class="bg-gradient-to-br from-primary to-on-primary-container px-6 py-2 rounded-md font-bold text-on-primary-fixed active:opacity-80 active:scale-95 transition-all inline-block">
+                Get Started
+            </a>
+        </div>
+    </nav>
+    <main class="relative overflow-hidden">
+        <!-- Atmospheric Depth Background -->
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] radial-glow -z-10 opacity-40"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] radial-glow -z-10 opacity-30"></div>
+        <!-- Hero Section -->
+        <section class="pt-32 pb-20 px-8 max-w-7xl mx-auto min-h-screen flex items-center">
+            <div class="grid lg:grid-cols-2 gap-16 items-center w-full">
+                <div class="flex flex-col items-start">
+                    <span class="label-md uppercase tracking-[0.1em] text-secondary font-medium mb-6">Mobile Defense
+                        Protocol v1.0</span>
+                    <h1
+                        class="font-headline text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-8 text-on-surface">
+                        Your privacy is <span class="text-primary">our priority.</span> Stop call-forwarding scams.
+                    </h1>
+                    <p class="text-lg md:text-xl text-on-surface-variant max-w-xl leading-relaxed mb-10">
+                        Privacy Activater protects you from scammers hijacking your calls and texts without your
+                        knowledge. Simple, effective mobile security for everyone.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mt-10">
+                        <a href="login.html"
+                            class="obsidian-gradient px-8 py-4 rounded-md font-bold text-on-primary-fixed hover:shadow-[0_0_20px_rgba(0,218,243,0.3)] transition-all inline-block">Log
+                            In</a>
+                        <a href="signup.html"
+                            class="border border-outline-variant/20 px-8 py-4 rounded-md font-bold text-primary hover:bg-surface-container-highest transition-all inline-block">Sign
+                            Up</a>
+                    </div>
+                </div>
+                <!-- Hero Visual: Data Abstract -->
+                <div class="relative hidden lg:block">
+                    <div class="relative w-full aspect-square max-w-[500px] mx-auto">
+                        <div class="absolute inset-0 bg-primary/10 rounded-full blur-[100px] animate-pulse"></div>
+                        <div
+                            class="glass-panel border border-outline-variant/15 w-full h-full rounded-full flex items-center justify-center">
+                            <div
+                                class="relative w-4/5 h-4/5 border border-primary/20 rounded-full flex items-center justify-center p-8">
+                                <div
+                                    class="w-full h-full glass-panel rounded-full border border-primary/40 flex items-center justify-center shadow-[0_0_40px_rgba(0,218,243,0.1)]">
+                                    <span class="material-symbols-outlined text-primary text-9xl"
+                                        style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+                                </div>
+                                <div
+                                    class="absolute -top-4 -right-4 w-24 h-24 glass-panel rounded-xl border border-tertiary/30 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-tertiary text-4xl">verified_user</span>
+                                </div>
+                                <div
+                                    class="absolute -bottom-8 -left-4 px-6 py-3 glass-panel rounded-lg border border-outline-variant/20">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+                                        <span class="text-xs font-mono text-secondary uppercase tracking-widest">Active
+                                            Protection</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- The Threat Section -->
+        <section class="py-24 bg-surface-container-low" id="threat">
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="mb-16">
+                    <span class="label-md uppercase tracking-[0.1em] text-error font-medium">Critical
+                        Vulnerability</span>
+                    <h2 class="font-headline text-4xl font-bold mt-4 tracking-tight">The Silent Hijack</h2>
+                </div>
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-5 space-y-8">
+                        <div class="p-8 bg-surface-container rounded-lg border-l-4 border-error/50">
+                            <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                                <span class="material-symbols-outlined text-error">warning</span>
+                                Intercepted Communication
+                            </h3>
+                            <p class="text-on-surface-variant leading-relaxed">
+                                Scammers use USSD codes or malicious apps to silently enable call and SMS forwarding.
+                                Once active, your banking OTPs, private calls, and sensitive messages are rerouted to
+                                their devices.
+                            </p>
+                        </div>
+                        <div class="p-8 bg-surface-container rounded-lg">
+                            <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary">security_update_warning</span>
+                                The Blind Spot
+                            </h3>
+                            <p class="text-on-surface-variant leading-relaxed">
+                                Standard antivirus software often misses these low-level system changes. Privacy
+                                Activater monitors the exact protocols hackers use to gain a foothold.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-12 glass-panel border border-outline-variant/15 rounded-xl">
+                        <div class="flex flex-col gap-12 relative">
+                            <!-- Visual Diagram -->
+                            <div class="flex justify-between items-center px-4">
+                                <div class="text-center group">
+                                    <div
+                                        class="w-20 h-20 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 ring-2 ring-primary/20 group-hover:ring-primary transition-all">
+                                        <span class="material-symbols-outlined text-3xl">smartphone</span>
+                                    </div>
+                                    <span class="text-xs font-medium uppercase tracking-tighter">Your Device</span>
+                                </div>
+                                <div class="flex-1 flex flex-col items-center gap-2">
+                                    <span class="text-[10px] font-mono text-error uppercase">Hijacked Path</span>
+                                    <div
+                                        class="w-full h-[2px] bg-gradient-to-r from-primary via-error to-error relative">
+                                        <div
+                                            class="absolute -top-1 left-1/2 -translate-x-1/2 material-symbols-outlined text-error text-xl">
+                                            dangerous</div>
+                                    </div>
+                                </div>
+                                <div class="text-center group">
+                                    <div
+                                        class="w-20 h-20 rounded-full bg-error-container/20 flex items-center justify-center mb-4 ring-2 ring-error/20 group-hover:ring-error transition-all">
+                                        <span class="material-symbols-outlined text-3xl text-error">person_alert</span>
+                                    </div>
+                                    <span class="text-xs font-medium uppercase tracking-tighter">Scammer</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="p-4 bg-surface-container-lowest rounded border border-outline-variant/10">
+                                    <span class="text-[10px] text-secondary font-mono block mb-2">SCENARIO A</span>
+                                    <p class="text-sm text-on-surface-variant italic">"Enter this code to fix your
+                                        network..."</p>
+                                    <div class="mt-2 text-error font-bold text-xs tracking-widest">*21*TARGET_NUMBER#
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-surface-container-lowest rounded border border-outline-variant/10">
+                                    <span class="text-[10px] text-secondary font-mono block mb-2">SCENARIO B</span>
+                                    <p class="text-sm text-on-surface-variant italic">App requests "Read SMS"
+                                        permissions.</p>
+                                    <div class="mt-2 text-error font-bold text-xs tracking-widest">
+                                        MALICIOUS_SERVICE_RUNNING</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Features Section -->
+        <section class="py-32 px-8 max-w-7xl mx-auto" id="features">
+            <div class="text-center mb-24">
+                <span class="label-md uppercase tracking-[0.1em] text-primary font-medium">Core Protection</span>
+                <h2 class="font-headline text-4xl md:text-5xl font-bold mt-4 tracking-tight">Intelligence at your
+                    fingertips.</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 items-start">
+                <!-- Feature 1 -->
+                <div
+                    class="group surface-container p-10 rounded-xl hover:bg-surface-bright transition-all duration-300 min-h-[400px] flex flex-col">
+                    <div
+                        class="w-14 h-14 obsidian-gradient rounded-lg flex items-center justify-center mb-8 shadow-[0_0_15px_rgba(0,218,243,0.2)]">
+                        <span class="material-symbols-outlined text-on-primary-fixed text-2xl">speed</span>
+                    </div>
+                    <h3 class="font-headline text-2xl font-bold mb-4">Instant Diagnostics</h3>
+                    <p class="text-on-surface-variant leading-relaxed mb-8">
+                        One-tap USSD shortcuts to instantly check status (*#21#) and disable all call forwarding
+                        (##002#). No complexity, just direct control.
+                    </p>
+                    <div class="mt-auto pt-6 border-t border-outline-variant/10">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-mono text-tertiary">SYSTEM_CHECK_AVAILABLE</span>
+                            <span class="material-symbols-outlined text-primary text-sm">arrow_forward_ios</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature 2: Offset -->
+                <div
+                    class="group surface-container p-10 rounded-xl hover:bg-surface-bright transition-all duration-300 min-h-[400px] flex flex-col md:mt-12">
+                    <div
+                        class="w-14 h-14 obsidian-gradient rounded-lg flex items-center justify-center mb-8 shadow-[0_0_15px_rgba(0,218,243,0.2)]">
+                        <span class="material-symbols-outlined text-on-primary-fixed text-2xl">visibility_lock</span>
+                    </div>
+                    <h3 class="font-headline text-2xl font-bold mb-4">Permission Monitor</h3>
+                    <p class="text-on-surface-variant leading-relaxed mb-8">
+                        A built-in scanner to detect and warn users about hidden malicious apps reading their SMS
+                        messages in the background.
+                    </p>
+                    <div class="mt-auto pt-6 border-t border-outline-variant/10">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-mono text-tertiary">SCAN_PROTOCOL_v4.2</span>
+                            <span class="material-symbols-outlined text-primary text-sm">arrow_forward_ios</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feature 3 -->
+                <div
+                    class="group surface-container p-10 rounded-xl hover:bg-surface-bright transition-all duration-300 min-h-[400px] flex flex-col">
+                    <div
+                        class="w-14 h-14 obsidian-gradient rounded-lg flex items-center justify-center mb-8 shadow-[0_0_15px_rgba(0,218,243,0.2)]">
+                        <span class="material-symbols-outlined text-on-primary-fixed text-2xl">school</span>
+                    </div>
+                    <h3 class="font-headline text-2xl font-bold mb-4">Education Hub</h3>
+                    <p class="text-on-surface-variant leading-relaxed mb-8">
+                        Simple, local-language guides explaining how 401 and 21 scams work to stop fraud before it
+                        starts. Knowledge is the first firewall.
+                    </p>
+                    <div class="mt-auto pt-6 border-t border-outline-variant/10">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-mono text-tertiary">ENCYCLOPEDIA_SYNCED</span>
+                            <span class="material-symbols-outlined text-primary text-sm">arrow_forward_ios</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Newsletter / CTA -->
+        <section class="py-24 px-8 max-w-5xl mx-auto">
+            <div class="glass-panel border border-primary/20 p-12 rounded-2xl relative overflow-hidden text-center">
+                <div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+                <h2 class="font-headline text-3xl md:text-4xl font-bold mb-6">Ready to secure your mobile obsidian?</h2>
+                <p class="text-on-surface-variant mb-10 max-w-2xl mx-auto">Be the first to know when our complete
+                    security suite launches. Join the elite network of protected users.</p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <input
+                        class="flex-1 bg-surface-container-lowest border border-outline-variant/30 rounded-md px-4 py-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                        placeholder="Enter your email" type="email" />
+                    <button
+                        class="obsidian-gradient px-8 py-3 rounded-md font-bold text-on-primary-fixed whitespace-nowrap"
+                        type="submit">Secure Access</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="w-full py-12 border-t border-slate-800/15 bg-[#10131a]">
+        <div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-6">
+            <div class="flex flex-col gap-2">
+                <div class="text-lg font-bold text-cyan-400 font-['Space_Grotesk']">Privacy Activater</div>
+                <p class="text-sm text-slate-400 font-['Inter']">© 2025 Privacy Activater. Secure intelligence for the
+                    digital age.</p>
+            </div>
+            <div class="flex gap-8">
+                <a class="text-slate-500 hover:text-cyan-400 transition-colors font-['Inter'] text-sm active:underline"
+                    href="#">Privacy Policy</a>
+                <a class="text-slate-500 hover:text-cyan-400 transition-colors font-['Inter'] text-sm active:underline"
+                    href="#">Terms of Service</a>
+                <a class="text-slate-500 hover:text-cyan-400 transition-colors font-['Inter'] text-sm active:underline"
+                    href="#">Security Audit</a>
+                <a class="text-slate-500 hover:text-cyan-400 transition-colors font-['Inter'] text-sm active:underline"
+                    href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
