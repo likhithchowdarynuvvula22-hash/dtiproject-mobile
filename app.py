@@ -39,6 +39,7 @@ SMTP_USER = os.getenv("SMTP_USER", "")
 SMTP_PASS = os.getenv("SMTP_PASS", "")
 SMTP_FROM = os.getenv("SMTP_FROM", SMTP_USER)
 SMTP_USE_SSL = os.getenv("SMTP_USE_SSL", "false").lower() == "true"
+SMTP_USE_TLS = os.getenv("SMTP_USE_TLS", "false").lower() == "true"
 APP_ENV = os.getenv("APP_ENV", "dev").lower()
 
 HOST_EMAIL = os.getenv("HOST_EMAIL", "host@example.com")
@@ -149,7 +150,7 @@ def hash_string(s):
     return hashlib.sha256(s.encode('utf-8')).hexdigest()
 
 def send_otp_email(to_email, otp, purpose):
-    if not SMTP_HOST or not SMTP_USER or not SMTP_PASS or not SMTP_FROM:
+    if not SMTP_HOST or not SMTP_FROM:
         if APP_ENV == "prod":
             raise RuntimeError("SMTP is not configured")
         # Dev mode: keep flow working without external email provider.
@@ -165,12 +166,15 @@ def send_otp_email(to_email, otp, purpose):
     context = ssl.create_default_context()
     if SMTP_USE_SSL:
         with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, context=context) as server:
-            server.login(SMTP_USER, SMTP_PASS)
+            if SMTP_USER and SMTP_PASS:
+                server.login(SMTP_USER, SMTP_PASS)
             server.send_message(msg)
     else:
         with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-            server.starttls(context=context)
-            server.login(SMTP_USER, SMTP_PASS)
+            if SMTP_USE_TLS:
+                server.starttls(context=context)
+            if SMTP_USER and SMTP_PASS:
+                server.login(SMTP_USER, SMTP_PASS)
             server.send_message(msg)
     return {"delivery": "email"}
 
@@ -386,26 +390,6 @@ def get_stats(user):
         "sms_monitor_active": True
     })
 
-@app.route('/api/call-forwarding/check', methods=['POST'])
-@token_required
-def check_forwarding(user):
-    # Simulate compromise
-    db = get_db()
-    c = db.cursor()
-    c.execute("INSERT INTO forwarding_checks (user_id, status, forwarded_to) VALUES (?, ?, ?)", 
-              (user['id'], 'COMPROMISED', '+919800000001'))
-    db.commit()
-    return jsonify({"status": "COMPROMISED", "forwarded_to": "+919800000001"})
-
-@app.route('/api/call-forwarding/disable', methods=['POST'])
-@token_required
-def disable_forwarding(user):
-    db = get_db()
-    c = db.cursor()
-    c.execute("INSERT INTO forwarding_checks (user_id, status) VALUES (?, ?)", 
-              (user['id'], 'SAFE'))
-    db.commit()
-    return jsonify({"status": "SAFE", "message": "Forwarding disabled successfully"})
 
 @app.route('/')
 def serve_home():
