@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — SafeCall Sentinel{% endblock %}
+{% block body %}
+<!-- Mobile Sidebar Toggle -->
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open sidebar">
+  <span class="material-symbols-outlined">menu</span>
+</button>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-icon"><span class="material-symbols-outlined">shield</span></div>
+    <div><h1>SafeCall</h1><p>Luminous Sentinel</p></div>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="{{ url_for('dashboard') }}" class="sidebar-link active"><span class="material-symbols-outlined">dashboard</span>Overview</a>
+    <a href="{{ url_for('sms_analyzer') }}" class="sidebar-link"><span class="material-symbols-outlined">analytics</span>SMS Analyzer</a>
+    <a href="{{ url_for('call_checker') }}" class="sidebar-link"><span class="material-symbols-outlined">phone_forwarded</span>Call Checker</a>
+    <a href="{{ url_for('awareness') }}" class="sidebar-link"><span class="material-symbols-outlined">school</span>Awareness</a>
+    <a href="{{ url_for('scan_history') }}" class="sidebar-link"><span class="material-symbols-outlined">history</span>Scan History</a>
+    <a href="{{ url_for('profile') }}" class="sidebar-link"><span class="material-symbols-outlined">person</span>Profile</a>
+  </nav>
+  <div class="sidebar-user">
+    <div class="sidebar-avatar">{{ current_user.full_name[0] }}</div>
+    <div style="flex:1">
+      <div style="font-size:0.875rem;font-weight:700;color:var(--cyan-light)">{{ current_user.full_name }}</div>
+      <div style="font-size:0.625rem;color:var(--cyan);font-weight:800;text-transform:uppercase">Protected ✓</div>
+    </div>
+    <a href="{{ url_for('logout') }}" style="color:var(--text-secondary)" title="Logout"><span class="material-symbols-outlined" style="font-size:1.2rem">logout</span></a>
+  </div>
+</aside>
+
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- Main -->
+<div class="main-content" style="margin-left:260px;min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden">
+  <div class="ambient-blob" style="width:600px;height:600px;background:var(--cyan);top:-10%;right:-10%"></div>
+  <div class="topbar">
+    <span class="text-muted" style="font-size:0.875rem">Dashboard / Overview</span>
+    <div class="flex items-center gap-6">
+      <div class="topbar-search"><span class="material-symbols-outlined text-muted" style="font-size:1rem">search</span><input placeholder="Search activity..."/></div>
+      <div class="flex items-center gap-4">
+        <span class="material-symbols-outlined text-muted" style="cursor:pointer">notifications</span>
+        <span class="material-symbols-outlined text-muted" style="cursor:pointer">settings</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:2rem;flex:1;position:relative;z-index:10">
+    <!-- Welcome -->
+    <div style="margin-bottom:2rem">
+      <span class="text-label text-cyan" style="font-size:0.6rem;letter-spacing:0.3em">System Live</span>
+      <h2 style="font-size:2.2rem;font-weight:800;letter-spacing:-0.03em">Welcome back, {{ current_user.full_name.split()[0] }} 👋</h2>
+      <p class="text-muted" style="max-width:600px">Your personal sentinel is active. All communications are being filtered through the SafeCall verification layer.</p>
+    </div>
+
+    <!-- Stat Grid -->
+    <div class="grid grid-4 gap-6" style="margin-bottom:2rem">
+      <div class="stat-card">
+        <div class="flex justify-between items-center" style="margin-bottom:1rem">
+          <div class="stat-icon" style="background:rgba(147,0,10,0.15)"><span class="material-symbols-outlined text-error">phishing</span></div>
+          <span style="font-size:0.625rem;font-weight:700;color:var(--error)">Today</span>
+        </div>
+        <p class="text-label text-muted" style="margin-bottom:0.25rem">Phishing Alerts</p>
+        <h3 class="stat-value">{{ phishing_count }}</h3>
+        <div class="stat-bar"><div class="stat-bar-fill risk-high" style="width:{{ [phishing_count * 10, 100]|min }}%"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="flex justify-between items-center" style="margin-bottom:1rem">
+          <div class="stat-icon" style="background:rgba(0,229,255,0.12)"><span class="material-symbols-outlined text-cyan icon-filled">call</span></div>
+          <span style="font-size:0.625rem;font-weight:700;color:var(--cyan)">Active</span>
+        </div>
+        <p class="text-label text-muted" style="margin-bottom:0.25rem">Call Forwarding</p>
+        <h3 class="stat-value">Secured</h3>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width:100%;background:var(--cyan);box-shadow:0 0 8px rgba(0,229,255,0.5)"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="flex justify-between items-center" style="margin-bottom:1rem">
+          <div class="stat-icon" style="background:rgba(254,201,49,0.12)"><span class="material-symbols-outlined text-warning">warning</span></div>
+          <span style="font-size:0.625rem;font-weight:700;color:var(--warning)">Review</span>
+        </div>
+        <p class="text-label text-muted" style="margin-bottom:0.25rem">Suspicious</p>
+        <h3 class="stat-value">{{ suspicious_count }}</h3>
+        <div class="stat-bar"><div class="stat-bar-fill risk-medium" style="width:{{ [suspicious_count * 15, 100]|min }}%"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="flex justify-between items-center" style="margin-bottom:1rem">
+          <div class="stat-icon" style="background:rgba(0,218,243,0.12)"><span class="material-symbols-outlined" style="color:var(--cyan-dim)">verified_user</span></div>
+          <span style="font-size:0.625rem;font-weight:700;color:var(--cyan-dim)">Excellent</span>
+        </div>
+        <p class="text-label text-muted" style="margin-bottom:0.25rem">Security Score</p>
+        <h3 class="stat-value">{{ security_score }}%</h3>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width:{{ security_score }}%;background:var(--cyan-dim);box-shadow:0 0 8px rgba(0,218,243,0.5)"></div></div>
+      </div>
+    </div>
+
+    <!-- Alerts Table & Quick Actions -->
+    <div class="dashboard-bottom-grid">
+      <div class="card" style="padding:0;overflow:hidden">
+        <div style="padding:1.5rem;border-bottom:1px solid rgba(59,73,76,0.1);display:flex;justify-content:space-between;align-items:center">
+          <div><h3 style="font-size:1.2rem;font-weight:700">Recent Alerts</h3><p style="font-size:0.75rem;color:var(--text-muted)">Real-time analysis of incoming traffic</p></div>
+          <a href="{{ url_for('sms_analyzer') }}" class="btn btn-sm btn-secondary">Analyze New</a>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="alert-table">
+            <thead><tr><th>Type</th><th>Sender</th><th>Preview</th><th>Risk</th></tr></thead>
+            <tbody>
+              {% for alert in alerts %}
+              <tr>
+                <td><span style="width:32px;height:32px;border-radius:var(--radius-sm);display:inline-flex;align-items:center;justify-content:center;font-size:0.625rem;font-weight:900;
+                  {% if alert.risk_level == 'HIGH' %}background:rgba(147,0,10,0.15);color:var(--error){% elif alert.risk_level == 'MEDIUM' %}background:rgba(17,80,90,0.2);color:var(--secondary){% else %}background:rgba(0,229,255,0.08);color:var(--cyan){% endif %}">{{ alert.category[0] }}</span></td>
+                <td style="font-weight:600;font-size:0.8rem;{% if alert.risk_level == 'HIGH' %}color:var(--error){% endif %}">{{ alert.sender_id }}</td>
+                <td style="font-size:0.75rem;color:var(--text-secondary);max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ alert.preview }}</td>
+                <td><span class="badge badge-{{ alert.risk_level | lower }}">{{ alert.risk_level }}</span></td>
+              </tr>
+              {% endfor %}
+              {% if not alerts %}<tr><td colspan="4" class="text-center text-muted" style="padding:2rem">No alerts yet. Use the SMS Analyzer to scan messages.</td></tr>{% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.5rem">
+        <div class="card" style="position:relative;overflow:hidden">
+          <h4 style="font-size:0.875rem;font-weight:700;margin-bottom:1rem">Origin Heatmap</h4>
+          <div style="height:160px;background:var(--bg-void);border-radius:var(--radius-md);overflow:hidden;position:relative">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqvKPoQV-0z9zAAjxLwQHyOflCnnGddjarhppDLZC2af5opCfv_wim8MxWb8LzMmpWggrwjPJe6BsqmcSn-umOrSOmU_VXapEDKva0foIhvlnLsMO6KaFCWn2VBO9tlwsVnLZkZUBDOImOyCjUcGCzcTcUnBRm3oUt3xqyr5Sr944rxBM9R_J-c4350g_145ZY6XUFmhFC4BMiH12g_OLyHgu7G9s8wEgSWDFJ5fYSsHYD466k6MSm-553XVz8dnqrlFSZKkStQ1RI" alt="Global Threat Map" style="width:100%;height:100%;object-fit:cover;opacity:0.35;filter:grayscale(1)"/>
+            <div style="position:absolute;top:50%;left:33%;width:8px;height:8px;background:var(--cyan);border-radius:50%" class="animate-pulse"></div>
+            <div style="position:absolute;top:25%;right:25%;width:8px;height:8px;background:var(--error);border-radius:50%"></div>
+          </div>
+          <div class="flex justify-between" style="margin-top:0.75rem">
+            <div class="flex items-center gap-2"><span style="width:6px;height:6px;background:var(--cyan);border-radius:50%;display:inline-block"></span><span style="font-size:0.625rem;color:var(--text-muted)">Safe Traffic</span></div>
+            <div class="flex items-center gap-2"><span style="width:6px;height:6px;background:var(--error);border-radius:50%;display:inline-block"></span><span style="font-size:0.625rem;color:var(--text-muted)">Blocked</span></div>
+          </div>
+        </div>
+        <div style="background:var(--cyan);padding:1.5rem;border-radius:var(--radius-lg);position:relative;overflow:hidden">
+          <div style="position:absolute;top:0;right:0;padding:1rem;opacity:0.15"><span class="material-symbols-outlined" style="font-size:4rem;color:var(--on-primary)">shield_with_heart</span></div>
+          <h4 style="font-weight:900;font-size:1.1rem;color:var(--on-primary);margin-bottom:0.5rem;position:relative;z-index:1">SafeScan AI</h4>
+          <p style="font-size:0.75rem;color:var(--on-primary);opacity:0.8;margin-bottom:1rem;position:relative;z-index:1">Deep-packet inspection on your last 100 messages.</p>
+          <a href="{{ url_for('sms_analyzer') }}" class="btn btn-block" style="background:var(--on-primary);color:var(--cyan);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;position:relative;z-index:1">Initiate Deep Scan</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="padding:2rem;margin-top:auto;border-top:1px solid rgba(59,73,76,0.08);display:flex;justify-content:space-between;color:var(--text-muted)">
+    <span style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.15em">© 2026 SafeCall Technologies • Sentinel V2.4.1</span>
+    <div class="flex gap-4"><span style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.15em">Privacy</span><span style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.15em">Terms</span></div>
+  </footer>
+</div>
+{% endblock %}

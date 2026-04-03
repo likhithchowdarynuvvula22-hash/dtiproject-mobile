@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}500 Internal Error | SafeCall Sentinel{% endblock %}
+{% block body %}
+<nav class="navbar"><div class="navbar-inner">
+  <a href="{{ url_for('home') }}" class="navbar-brand">SafeCall</a>
+  <div class="navbar-links"><a href="{{ url_for('home') }}">Home</a><a href="{{ url_for('awareness') }}">Awareness</a></div>
+</div></nav>
+<main style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;position:relative;overflow:hidden">
+  <div class="ambient-blob" style="width:500px;height:500px;background:var(--error);top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.05"></div>
+  <div style="text-align:center;position:relative;z-index:10;max-width:500px">
+    <div style="font-size:10rem;font-weight:900;line-height:1;margin-bottom:1rem;color:var(--bg-container-highest);text-shadow:0 0 20px rgba(239,68,68,0.2)">
+      500
+    </div>
+    <div style="width:64px;height:64px;background:rgba(239,68,68,0.1);border-radius:var(--radius-lg);display:inline-flex;align-items:center;justify-content:center;margin-bottom:1.5rem;border:1px solid rgba(239,68,68,0.2)">
+      <span class="material-symbols-outlined text-error icon-filled" style="font-size:2rem">warning</span>
+    </div>
+    <h1 style="font-size:2rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:0.5rem;color:var(--error)">System Malfunction</h1>
+    <p class="text-muted" style="margin-bottom:2rem;font-size:1.1rem">Our security systems encountered an unexpected internal sector error. Our engineers have been alerted.</p>
+    <div class="flex gap-4 justify-center">
+      <a href="{{ url_for('home') }}" class="btn btn-secondary"><span class="material-symbols-outlined">refresh</span>Reboot Session</a>
+    </div>
+  </div>
+</main>
+{% endblock %}

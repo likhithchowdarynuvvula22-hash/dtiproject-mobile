@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SafeCall Awareness | Stay Informed. Stay Safe.</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#0a0e1a",
+                    "surface-container-low": "#171b28",
+                    "secondary-container": "#11505a",
+                    "outline": "#849396",
+                    "surface": "#0f131f",
+                    "on-primary-fixed": "#001f24",
+                    "surface-dim": "#0f131f",
+                    "inverse-surface": "#dfe2f3",
+                    "surface-container-high": "#262a37",
+                    "on-tertiary-fixed-variant": "#594400",
+                    "on-secondary-fixed-variant": "#0d4e57",
+                    "on-primary-fixed-variant": "#004f58",
+                    "on-secondary-fixed": "#001f24",
+                    "tertiary": "#ffeac0",
+                    "tertiary-fixed": "#ffdf96",
+                    "on-error-container": "#ffdad6",
+                    "inverse-primary": "#006875",
+                    "on-error": "#690005",
+                    "surface-bright": "#353946",
+                    "primary": "#c3f5ff",
+                    "on-tertiary-fixed": "#251a00",
+                    "surface-container-highest": "#313442",
+                    "tertiary-container": "#fec931",
+                    "surface-container": "#1b1f2c",
+                    "primary-fixed": "#9cf0ff",
+                    "on-secondary-container": "#8ac1cc",
+                    "background": "#0f131f",
+                    "on-tertiary-container": "#6f5500",
+                    "tertiary-fixed-dim": "#f3bf26",
+                    "on-primary-container": "#00626e",
+                    "secondary-fixed": "#b3ecf7",
+                    "on-primary": "#00363d",
+                    "error-container": "#93000a",
+                    "secondary-fixed-dim": "#98d0da",
+                    "error": "#ffb4ab",
+                    "on-tertiary": "#3e2e00",
+                    "primary-fixed-dim": "#00daf3",
+                    "on-surface-variant": "#bac9cc",
+                    "outline-variant": "#3b494c",
+                    "inverse-on-surface": "#2c303d",
+                    "surface-variant": "#313442",
+                    "surface-tint": "#00daf3",
+                    "on-surface": "#dfe2f3",
+                    "on-background": "#dfe2f3",
+                    "on-secondary": "#00363d",
+                    "secondary": "#98d0da",
+                    "primary-container": "#00e5ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        line-height: 1;
+      }
+      .glass-panel {
+        background: rgba(15, 19, 31, 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .asymmetric-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 2rem;
+      }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0f131f]/60 backdrop-blur-xl border-b border-[#3b494c]/15 shadow-[0_0_32px_rgba(0,229,255,0.05)]">
+<div class="flex justify-between items-center w-full px-8 h-20 max-w-screen-2xl mx-auto font-['Inter'] font-medium tracking-tight">
+<div class="text-2xl font-bold tracking-tighter text-[#c3f5ff]">SafeCall</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors transition-all active:scale-95 duration-200 ease-in-out" href="index.html">Home</a>
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors transition-all active:scale-95 duration-200 ease-in-out" href="safecall_dashboard_3.html">Dashboard</a>
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors transition-all active:scale-95 duration-200 ease-in-out" href="safecall_awareness__safety_tips_5.html">Awareness</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2 bg-primary-container text-on-primary-container rounded-lg font-bold hover:opacity-90 active:scale-95 duration-200 transition-all">Login</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-8 max-w-screen-2xl mx-auto">
+<!-- Hero Section -->
+<header class="mb-20 text-center md:text-left">
+<span class="label-sm text-primary tracking-[0.2em] uppercase font-bold mb-4 block">Cyber Defense Academy</span>
+<h1 class="text-6xl md:text-8xl font-black text-on-surface tracking-tighter leading-tight mb-6">
+                Stay Informed.<br/><span class="text-primary-container">Stay Safe.</span>
+</h1>
+<p class="text-on-surface-variant text-xl max-w-2xl leading-relaxed">
+                The frontline of security isn't just code—it's your awareness. Learn to identify, intercept, and neutralize modern social engineering tactics.
+            </p>
+</header>
+<!-- Educational Bento Grid -->
+<div class="asymmetric-grid mb-32">
+<!-- Card 1: Call Forwarding -->
+<div class="col-span-12 md:col-span-5 bg-surface-container-low p-8 rounded-xl relative overflow-hidden group border border-[#3b494c]/15">
+<div class="absolute -right-8 -top-8 text-primary/10 transition-transform duration-700 group-hover:scale-110">
+<span class="material-symbols-outlined text-[12rem]" data-icon="phone_forwarded">phone_forwarded</span>
+</div>
+<div class="relative z-10">
+<div class="w-12 h-12 bg-primary-container/10 flex items-center justify-center rounded mb-6">
+<span class="material-symbols-outlined text-primary-container" data-icon="phone_callback">phone_callback</span>
+</div>
+<h3 class="text-2xl font-bold text-on-surface mb-4">What is Call Forwarding Fraud?</h3>
+<p class="text-on-surface-variant leading-relaxed mb-6">
+                        Scammers trick you into dialing a code (like *401*number#) that forwards all your incoming calls to their device. This allows them to intercept voice-based OTPs and bypass your security measures without your knowledge.
+                    </p>
+<div class="flex items-center gap-2 text-primary font-bold text-sm tracking-wide">
+<span class="material-symbols-outlined text-sm" data-icon="shield_lock">shield_lock</span>
+                        NEVER DIAL CODES SENT BY STRANGERS
+                    </div>
+</div>
+</div>
+<!-- Card 2: OTP Theft Flow -->
+<div class="col-span-12 md:col-span-7 bg-surface-container-high p-8 rounded-xl border border-[#3b494c]/15">
+<h3 class="text-2xl font-bold text-on-surface mb-8">How OTP Theft Happens</h3>
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative">
+<!-- Flow Item -->
+<div class="flex flex-col items-center text-center gap-3 w-full md:w-1/4">
+<div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary" data-icon="call">call</span>
+</div>
+<span class="text-sm font-medium text-on-surface">Scammer calls claiming urgency</span>
+</div>
+<span class="hidden md:block material-symbols-outlined text-outline-variant" data-icon="arrow_forward">arrow_forward</span>
+<!-- Flow Item -->
+<div class="flex flex-col items-center text-center gap-3 w-full md:w-1/4">
+<div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary" data-icon="dialpad">dialpad</span>
+</div>
+<span class="text-sm font-medium text-on-surface">User dials a secret "fix" code</span>
+</div>
+<span class="hidden md:block material-symbols-outlined text-outline-variant" data-icon="arrow_forward">arrow_forward</span>
+<!-- Flow Item -->
+<div class="flex flex-col items-center text-center gap-3 w-full md:w-1/4">
+<div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary" data-icon="multiple_stop">multiple_stop</span>
+</div>
+<span class="text-sm font-medium text-on-surface">OTP diverted to attacker</span>
+</div>
+<span class="hidden md:block material-symbols-outlined text-outline-variant" data-icon="arrow_forward">arrow_forward</span>
+<!-- Flow Item -->
+<div class="flex flex-col items-center text-center gap-3 w-full md:w-1/4">
+<div class="w-14 h-14 rounded-full bg-error-container/20 flex items-center justify-center border border-error/50">
+<span class="material-symbols-outlined text-error" data-icon="dangerous">dangerous</span>
+</div>
+<span class="text-sm font-bold text-error">Account Hacked</span>
+</div>
+</div>
+<div class="mt-8 p-4 bg-surface-container-lowest/50 rounded border-l-4 border-primary-container">
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-bold mb-1">Defense Protocol</p>
+<p class="text-sm">SafeCall monitors unusual call-forwarding settings and alerts you immediately if your communications are redirected.</p>
+</div>
+</div>
+<!-- Card 3: Message Spotting -->
+<div class="col-span-12 bg-surface p-10 rounded-xl border border-[#3b494c]/15 relative overflow-hidden">
+<div class="flex flex-col lg:flex-row gap-12 items-center">
+<div class="w-full lg:w-1/2">
+<h3 class="text-3xl font-black text-on-surface mb-6 tracking-tight">How to Spot a Fake Message</h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-container mt-1" data-icon="priority_high">priority_high</span>
+<div>
+<span class="font-bold block">Artificial Sense of Urgency</span>
+<span class="text-on-surface-variant text-sm">Phrases like "Action Required" or "Account Locked" to force a panic reaction.</span>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-container mt-1" data-icon="link_off">link_off</span>
+<div>
+<span class="font-bold block">Suspicious Links</span>
+<span class="text-on-surface-variant text-sm">URLs that look similar but aren't official (e.g., faceb00k.com instead of facebook.com).</span>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-container mt-1" data-icon="person_search">person_search</span>
+<div>
+<span class="font-bold block">Unknown or Hidden Sender</span>
+<span class="text-on-surface-variant text-sm">International numbers or random email addresses pretending to be your bank.</span>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-container mt-1" data-icon="spellcheck">spellcheck</span>
+<div>
+<span class="font-bold block">Poor Grammar &amp; Formatting</span>
+<span class="text-on-surface-variant text-sm">Professional organizations rarely send texts with typos or strange punctuation.</span>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-container mt-1" data-icon="lock_reset">lock_reset</span>
+<div>
+<span class="font-bold block">Requests for Personal Info</span>
+<span class="text-on-surface-variant text-sm">Legitimate banks will never ask for your PIN, OTP, or password via text message.</span>
+</div>
+</li>
+</ul>
+</div>
+<div class="w-full lg:w-1/2 flex justify-center">
+<img alt="Digital security visualization" class="rounded-xl shadow-2xl border border-outline-variant/30 max-w-md w-full" data-alt="Close up of a futuristic smartphone interface showing encrypted message notifications and security scan overlays in neon cyan and navy tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANdfj2IzYQDH2z-FYB7L3uvuDk3SfNKlNi_gKhUvpxmG7x9hcypjJTjdY3-gPr05Ye268yEJA-CYdJe6GYN-01OcCLC8xxF_nsVjDt1si8-_lfWglj_KjMXvVajwXanhDjRAl962VIHIIKtG-k7rTWadcQi234ydA5XBnYaJvGkuTz2bzLywdMQXR3lHsmvVuEyVWExMAhwL9RQ_ufTsa6Iy-jWIhEktKHxINrCn0LMtL8jGRtoPlWFz8PN3WLyKs2DsZN5jE3rQ2T"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Real Scam Examples -->
+<section class="mb-32">
+<div class="mb-12">
+<h2 class="text-4xl font-black tracking-tight mb-2">Real Scam Examples</h2>
+<div class="h-1 w-24 bg-primary-container"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- SMS 1 -->
+<div class="bg-surface-container-high rounded-2xl p-6 relative shadow-lg">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 bg-surface-container-highest rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="person">person</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant">+44 7800 123456</p>
+<p class="text-[10px] text-outline uppercase">Mobile • 2m ago</p>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-tr-xl rounded-bl-xl rounded-br-xl p-4 text-on-surface text-sm leading-relaxed border border-error/10">
+<span class="font-bold text-error uppercase text-[10px] block mb-1">DANGER</span>
+                        URGENT: Your account is locked due to suspicious activity. Verify your identity immediately at <span class="text-primary underline">https://bank-secure-verify.net/login</span> or your funds will be frozen.
+                    </div>
+</div>
+<!-- SMS 2 -->
+<div class="bg-surface-container-high rounded-2xl p-6 relative shadow-lg">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 bg-surface-container-highest rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="person">person</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant">LOTT-WINNER</p>
+<p class="text-[10px] text-outline uppercase">SMS • 1h ago</p>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-tr-xl rounded-bl-xl rounded-br-xl p-4 text-on-surface text-sm leading-relaxed border border-primary/10">
+<span class="font-bold text-primary-container uppercase text-[10px] block mb-1">SUSPICIOUS</span>
+                        Congratulations! You have won a lottery prize of $1,000,000. Reply with your full name and bank account details to claim your reward instantly. No fees required!
+                    </div>
+</div>
+<!-- SMS 3 -->
+<div class="hidden lg:block bg-surface-container-high rounded-2xl p-6 relative shadow-lg">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 bg-surface-container-highest rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="person">person</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant">TRAI-ALRT</p>
+<p class="text-[10px] text-outline uppercase">Official-Looking • 4h ago</p>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-tr-xl rounded-bl-xl rounded-br-xl p-4 text-on-surface text-sm leading-relaxed border border-error/10">
+<span class="font-bold text-error uppercase text-[10px] block mb-1">CRITICAL</span>
+                        Your mobile number will be disconnected within 2 hours by TRAI. Dial *401*9876543210# to update your KYC and avoid service interruption immediately.
+                    </div>
+</div>
+</div>
+</section>
+<!-- Emergency Helplines -->
+<section class="bg-primary-container/5 rounded-3xl p-12 border border-primary-container/20">
+<div class="flex flex-col md:flex-row items-center gap-12">
+<div class="w-full md:w-1/3">
+<h2 class="text-4xl font-black text-on-surface mb-4 tracking-tighter">Emergency Helplines</h2>
+<p class="text-on-surface-variant">If you think you've been compromised, contact these official authorities immediately. Every second counts.</p>
+</div>
+<div class="w-full md:w-2/3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Helpline Card -->
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/20 hover:border-primary-container/50 transition-all group">
+<p class="text-label-sm text-outline uppercase tracking-widest font-bold mb-2">Cyber Crime</p>
+<p class="text-3xl font-black text-primary-container group-hover:scale-105 transition-transform origin-left">1930</p>
+<p class="text-xs text-on-surface-variant mt-2">National Cyber Crime Reporting Portal</p>
+</div>
+<!-- Helpline Card -->
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/20 hover:border-primary-container/50 transition-all group">
+<p class="text-label-sm text-outline uppercase tracking-widest font-bold mb-2">TRAI</p>
+<p class="text-3xl font-black text-primary-container group-hover:scale-105 transition-transform origin-left">1800-110-420</p>
+<p class="text-xs text-on-surface-variant mt-2">Telecom Regulatory Authority</p>
+</div>
+<!-- Helpline Card -->
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/20 hover:border-primary-container/50 transition-all group">
+<p class="text-label-sm text-outline uppercase tracking-widest font-bold mb-2">RBI</p>
+<p class="text-3xl font-black text-primary-container group-hover:scale-105 transition-transform origin-left">14440</p>
+<p class="text-xs text-on-surface-variant mt-2">Financial Fraud Assistance</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#0a0e1a] w-full py-12 px-8 border-t border-[#3b494c]/15">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-screen-2xl mx-auto font-['Inter'] text-sm leading-relaxed">
+<div class="flex flex-col gap-2">
+<span class="font-bold text-[#c3f5ff] text-lg">SafeCall Sentinel</span>
+<p class="text-[#bac9cc]">© 2024 SafeCall Sentinel. All rights reserved.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-[#bac9cc] hover:text-[#00e5ff] transition-all" href="#">Emergency Helpline</a>
+<a class="text-[#bac9cc] hover:text-[#00e5ff] transition-all" href="#">Privacy Protocol</a>
+<a class="text-[#bac9cc] hover:text-[#00e5ff] transition-all" href="#">Security Audit</a>
+</div>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container hover:opacity-80 transition-all">
+<span class="material-symbols-outlined" data-icon="shield">shield</span>
+</button>
+<button class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-container hover:opacity-80 transition-all">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+</button>
+</div>
+</div>
+</footer>
+</body></html>

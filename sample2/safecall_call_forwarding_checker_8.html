@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SafeCall - Call Forwarding Checker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#001f24",
+                    "surface-variant": "#313442",
+                    "secondary-fixed-dim": "#98d0da",
+                    "on-error": "#690005",
+                    "surface-container-lowest": "#0a0e1a",
+                    "error-container": "#93000a",
+                    "on-primary-container": "#00626e",
+                    "primary-container": "#00e5ff",
+                    "surface-container": "#1b1f2c",
+                    "secondary-fixed": "#b3ecf7",
+                    "primary-fixed-dim": "#00daf3",
+                    "outline": "#849396",
+                    "surface": "#0f131f",
+                    "on-secondary-fixed": "#001f24",
+                    "inverse-surface": "#dfe2f3",
+                    "on-surface-variant": "#bac9cc",
+                    "on-primary": "#00363d",
+                    "on-background": "#dfe2f3",
+                    "inverse-on-surface": "#2c303d",
+                    "surface-dim": "#0f131f",
+                    "background": "#0f131f",
+                    "tertiary-fixed-dim": "#f3bf26",
+                    "on-secondary-container": "#8ac1cc",
+                    "on-secondary": "#00363d",
+                    "tertiary": "#ffeac0",
+                    "on-surface": "#dfe2f3",
+                    "surface-tint": "#00daf3",
+                    "on-tertiary-container": "#6f5500",
+                    "primary-fixed": "#9cf0ff",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed": "#ffdf96",
+                    "on-tertiary": "#3e2e00",
+                    "secondary-container": "#11505a",
+                    "surface-bright": "#353946",
+                    "on-secondary-fixed-variant": "#0d4e57",
+                    "outline-variant": "#3b494c",
+                    "tertiary-container": "#fec931",
+                    "surface-container-high": "#262a37",
+                    "on-error-container": "#ffdad6",
+                    "primary": "#c3f5ff",
+                    "surface-container-highest": "#313442",
+                    "on-primary-fixed-variant": "#004f58",
+                    "secondary": "#98d0da",
+                    "on-tertiary-fixed-variant": "#594400",
+                    "inverse-primary": "#006875",
+                    "surface-container-low": "#171b28",
+                    "on-tertiary-fixed": "#251a00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #0a0e1a;
+      }
+    </style>
+</head>
+<body class="font-body text-on-surface antialiased">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-[#0f131f] flex flex-col border-r border-[#3b494c]/15 shadow-2xl shadow-black/50 z-50 hidden md:flex">
+<div class="px-6 py-8">
+<h1 class="text-xl font-black text-[#c3f5ff] tracking-tighter">SafeCall</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-[#00e5ff] mt-1">Luminous Sentinel</p>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<a class="flex items-center space-x-3 text-[#bac9cc] py-3 px-4 hover:bg-[#171b28] hover:text-[#c3f5ff] transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Inter'] text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 bg-[#262a37] text-[#00e5ff] border-r-4 border-[#00e5ff] py-3 px-4 transition-all cursor-pointer" href="#">
+<span class="material-symbols-outlined" data-icon="phone_forwarded">phone_forwarded</span>
+<span class="font-['Inter'] text-sm font-medium">Call Checker</span>
+</a>
+<a class="flex items-center space-x-3 text-[#bac9cc] py-3 px-4 hover:bg-[#171b28] hover:text-[#c3f5ff] transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span class="font-['Inter'] text-sm font-medium">Network Shield</span>
+</a>
+<a class="flex items-center space-x-3 text-[#bac9cc] py-3 px-4 hover:bg-[#171b28] hover:text-[#c3f5ff] transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="font-['Inter'] text-sm font-medium">Security Logs</span>
+</a>
+<a class="flex items-center space-x-3 text-[#bac9cc] py-3 px-4 hover:bg-[#171b28] hover:text-[#c3f5ff] transition-all cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-6">
+<button class="w-full py-3 px-4 bg-primary-container text-on-primary-fixed font-bold rounded-md shadow-[0px_0px_12px_rgba(0,229,255,0.4)] active:scale-95 transition-transform">
+                Run Full Scan
+            </button>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 w-full z-40 bg-[#0a0e1a]/60 backdrop-blur-xl md:pl-64 flex justify-between items-center px-6 py-4 shadow-[0px_0px_32px_rgba(0,229,255,0.08)]">
+<div class="flex items-center space-x-4">
+<span class="md:hidden text-2xl font-bold tracking-tighter text-[#c3f5ff]">SafeCall</span>
+</div>
+<div class="flex items-center space-x-6">
+<div class="hidden md:flex items-center bg-[#171b28] rounded-md px-3 py-1.5 border border-[#3b494c]/20">
+<span class="material-symbols-outlined text-[#bac9cc] text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none text-sm text-on-surface focus:ring-0 placeholder-[#bac9cc]/50" placeholder="Search logs..." type="text"/>
+</div>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-[#bac9cc] hover:text-[#00e5ff] cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-[#bac9cc] hover:text-[#00e5ff] cursor-pointer" data-icon="settings">settings</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-[#00e5ff]/30">
+<img alt="User profile avatar" data-alt="close-up portrait of a professional man in a tech environment with subtle blue ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2ArtKWjgcTEWa2vMdVeOP7JxagC_SOYiLofmWBH9NSvOgWo4cxxYtbdNv-78-g_IcN1oftmUF8F8RSKhU9kX3deGXPaOld4WlkWFDjHUYV13kTgSlkhkUnjFMcSU7dsJiP3QO7NsNuTmlOa153ABsa6RphBdGVDIKTSyWAJe_oYFCnl7TWrYOoTg6JqliCRWEdrArSKpm0bcrQfsmGDfv_hLKDt9TktLuhQnYv6bZBKa8R2muBXGLyfYsS2qW1ZDbcybOyBVVQP7u"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 min-h-screen px-6 pb-12 bg-surface-container-lowest">
+<div class="max-w-5xl mx-auto">
+<!-- Page Header -->
+<div class="mb-10">
+<span class="text-[10px] font-bold uppercase tracking-[0.3em] text-secondary mb-2 block">Detection Module v2.4</span>
+<h2 class="text-4xl font-extrabold text-primary tracking-tight mb-2">Call Forwarding Checker</h2>
+<p class="text-on-surface-variant text-lg">Detect if your calls are being secretly redirected</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Status Card (Bento Pattern) -->
+<section class="lg:col-span-7">
+<div class="bg-surface-container-low rounded-xl p-8 shadow-2xl relative overflow-hidden group">
+<!-- Background Glow Effect -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-green-500/10 blur-[100px] rounded-full"></div>
+<div class="relative z-10">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center space-x-3">
+<div class="p-3 bg-green-500/20 rounded-lg">
+<span class="material-symbols-outlined text-green-400 text-3xl" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div>
+<h3 class="text-green-400 font-bold text-xl">Safe – No Forwarding Detected</h3>
+<p class="text-on-surface-variant text-sm">Last checked: 2 minutes ago</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-6 flex flex-col items-center justify-center border border-[#3b494c]/15">
+<p class="text-label-sm text-secondary uppercase tracking-widest mb-2">Active Line Monitoring</p>
+<div class="text-3xl font-mono text-primary tracking-wider">+1 (555) 000-0000</div>
+<div class="mt-6 flex space-x-2">
+<div class="h-1 w-8 bg-green-500 rounded-full animate-pulse"></div>
+<div class="h-1 w-8 bg-green-500/40 rounded-full"></div>
+<div class="h-1 w-8 bg-green-500/40 rounded-full"></div>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-3 gap-4">
+<div class="text-center">
+<p class="text-xs text-on-surface-variant mb-1">Voice</p>
+<p class="text-sm font-bold text-green-400 uppercase">Inactive</p>
+</div>
+<div class="text-center border-x border-[#3b494c]/20">
+<p class="text-xs text-on-surface-variant mb-1">Data</p>
+<p class="text-sm font-bold text-green-400 uppercase">Inactive</p>
+</div>
+<div class="text-center">
+<p class="text-xs text-on-surface-variant mb-1">SMS</p>
+<p class="text-sm font-bold text-green-400 uppercase">Inactive</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Warning Box -->
+<div class="mt-8 bg-error-container/20 rounded-xl p-6 flex items-start space-x-4 border border-error-container/30">
+<span class="material-symbols-outlined text-error text-2xl mt-1" data-icon="warning">warning</span>
+<div>
+<h4 class="text-error font-bold mb-1">Security Advisory</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                                Scammers trick you into dialing codes that forward your calls. Never dial codes sent by strangers. Digital sentinels recommend manual verification if you suspect unusual activity.
+                            </p>
+</div>
+</div>
+</section>
+<!-- Manual Check Section -->
+<section class="lg:col-span-5 flex flex-col space-y-6">
+<div class="bg-surface-container-high rounded-xl p-8 h-full">
+<h3 class="text-xl font-bold text-primary-fixed mb-6 flex items-center">
+<span class="material-symbols-outlined mr-2" data-icon="terminal">terminal</span>
+                            How to Check Manually
+                        </h3>
+<div class="space-y-8">
+<!-- Step 1 -->
+<div class="relative pl-8">
+<div class="absolute left-0 top-1 w-5 h-5 bg-primary-container/20 border border-primary-container rounded-full flex items-center justify-center text-[10px] font-bold text-primary-container">1</div>
+<p class="text-on-surface font-medium">Open your Phone Dialer</p>
+<p class="text-on-surface-variant text-sm mt-1">Navigate to your standard calling application on your device.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative pl-8">
+<div class="absolute left-0 top-1 w-5 h-5 bg-primary-container/20 border border-primary-container rounded-full flex items-center justify-center text-[10px] font-bold text-primary-container">2</div>
+<p class="text-on-surface font-medium mb-3">Dial *#21# to check status</p>
+<div class="bg-surface-container-lowest rounded-md flex items-center justify-between p-3 border border-[#3b494c]/30">
+<code class="text-[#00e5ff] font-mono text-lg font-bold">*#21#</code>
+<button class="flex items-center text-xs text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="content_copy">content_copy</span>
+                                        Copy
+                                    </button>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative pl-8">
+<div class="absolute left-0 top-1 w-5 h-5 bg-primary-container/20 border border-primary-container rounded-full flex items-center justify-center text-[10px] font-bold text-primary-container">3</div>
+<p class="text-on-surface font-medium mb-3">Dial ##002# to disable all forwarding</p>
+<div class="bg-surface-container-lowest rounded-md flex items-center justify-between p-3 border border-[#3b494c]/30">
+<code class="text-error font-mono text-lg font-bold">##002#</code>
+<button class="flex items-center text-xs text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="content_copy">content_copy</span>
+                                        Copy
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Pulse Gauge -->
+<div class="mt-12">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs text-on-surface-variant uppercase tracking-tighter">Line Integrity Score</span>
+<span class="text-xs text-primary-fixed-dim">98% Secure</span>
+</div>
+<div class="w-full bg-[#171b28] h-1.5 rounded-full overflow-hidden">
+<div class="bg-gradient-to-r from-primary-container to-surface-tint h-full w-[98%] shadow-[0px_0px_8px_rgba(0,229,255,0.6)]"></div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Contextual Data Visualization -->
+<section class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-low/50 backdrop-blur-sm p-6 rounded-xl border border-[#3b494c]/10">
+<p class="text-label-sm text-[#bac9cc] mb-4">Network Encryption</p>
+<div class="flex items-end justify-between">
+<span class="text-2xl font-bold text-on-surface">AES-256</span>
+<span class="material-symbols-outlined text-[#00e5ff] text-4xl opacity-40" data-icon="lock">lock</span>
+</div>
+</div>
+<div class="bg-surface-container-low/50 backdrop-blur-sm p-6 rounded-xl border border-[#3b494c]/10">
+<p class="text-label-sm text-[#bac9cc] mb-4">Signal Interception</p>
+<div class="flex items-end justify-between">
+<span class="text-2xl font-bold text-on-surface">None Detected</span>
+<span class="material-symbols-outlined text-[#00e5ff] text-4xl opacity-40" data-icon="settings_input_antenna">settings_input_antenna</span>
+</div>
+</div>
+<div class="bg-surface-container-low/50 backdrop-blur-sm p-6 rounded-xl border border-[#3b494c]/10">
+<p class="text-label-sm text-[#bac9cc] mb-4">Device Masking</p>
+<div class="flex items-end justify-between">
+<span class="text-2xl font-bold text-on-surface">Active</span>
+<span class="material-symbols-outlined text-[#00e5ff] text-4xl opacity-40" data-icon="mask">masks</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full bg-[#0a0e1a]/80 backdrop-blur-xl flex justify-around items-center py-4 px-2 z-50">
+<a class="flex flex-col items-center text-[#bac9cc]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center text-[#00e5ff]" href="#">
+<span class="material-symbols-outlined" data-icon="phone_forwarded" style="font-variation-settings: 'FILL' 1;">phone_forwarded</span>
+<span class="text-[10px] mt-1">Checker</span>
+</a>
+<a class="flex flex-col items-center text-[#bac9cc]" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span class="text-[10px] mt-1">Shield</span>
+</a>
+<a class="flex flex-col items-center text-[#bac9cc]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

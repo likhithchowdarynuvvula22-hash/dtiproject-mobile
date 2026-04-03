@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Sign Up — SafeCall Sentinel{% endblock %}
+{% block body %}
+<nav class="navbar"><div class="navbar-inner">
+  <a href="{{ url_for('home') }}" class="navbar-brand">SafeCall</a>
+  <div class="navbar-links">
+    <a href="{{ url_for('home') }}">Home</a><a href="{{ url_for('awareness') }}">Awareness</a><a href="{{ url_for('login') }}">Login</a>
+  </div>
+  <div class="flex gap-3 items-center">
+    <a href="{{ url_for('signup') }}" class="btn btn-primary btn-sm cyan-box-glow">Get Protected</a>
+    <button class="mobile-menu-btn" aria-label="Menu"><span class="material-symbols-outlined">menu</span></button>
+  </div>
+</div></nav>
+<main style="flex:1;display:flex;align-items:center;justify-content:center;padding:6rem 1.5rem 3rem;position:relative;overflow:hidden;min-height:100vh">
+  <div class="ambient-blob" style="width:400px;height:400px;background:var(--cyan);top:25%;left:-10%"></div>
+  <div class="ambient-blob" style="width:400px;height:400px;background:var(--secondary-container);bottom:25%;right:-10%;opacity:0.1"></div>
+  <div style="width:100%;max-width:440px;position:relative;z-index:10">
+    <div class="glass rounded-xl" style="padding:2.5rem">
+      <div style="margin-bottom:2rem">
+        <span class="text-label" style="color:var(--cyan-dim);font-size:0.6rem;letter-spacing:0.2em;display:block;margin-bottom:0.5rem">Secure Access</span>
+        <h1 style="font-size:1.75rem;font-weight:800;letter-spacing:-0.02em">Create Your Account</h1>
+        <p class="text-muted" style="font-size:0.875rem;margin-top:0.25rem">Join the network of protected communication.</p>
+      </div>
+      <form method="POST" action="{{ url_for('signup') }}" style="display:flex;flex-direction:column;gap:1.25rem" id="signup-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="form-group">
+          <label class="form-label" for="full_name">Full Name</label>
+          <input class="form-input" name="full_name" id="full_name" placeholder="John Doe" required autocomplete="name" minlength="2"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phone">Phone Number</label>
+          <input class="form-input" name="phone" id="phone" type="tel" placeholder="+1 (555) 000-0000" required autocomplete="tel"/>
+          <span style="font-size:0.625rem;color:var(--text-muted);display:flex;align-items:center;gap:0.25rem"><span class="material-symbols-outlined" style="font-size:0.75rem">info</span>Used to check call forwarding</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email ID</label>
+          <input class="form-input" name="email" id="email" type="email" placeholder="name@company.com" required autocomplete="email"/>
+          <span style="font-size:0.625rem;color:var(--text-muted);display:flex;align-items:center;gap:0.25rem"><span class="material-symbols-outlined" style="font-size:0.75rem">verified_user</span>OTP verification sent here</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div style="position:relative">
+            <input class="form-input" style="padding-right:2.5rem" name="password" id="password" type="password" placeholder="••••••••" required minlength="8" autocomplete="new-password"/>
+            <button type="button" class="toggle-pw" style="position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer" aria-label="Toggle password visibility"><span class="material-symbols-outlined" style="font-size:1.1rem">visibility</span></button>
+          </div>
+          <div class="pw-strength-bar" id="pw-strength"><div class="pw-strength-fill" id="pw-strength-fill"></div></div>
+          <span style="font-size:0.625rem;color:var(--text-muted)" id="pw-strength-text">Min 8 chars, 1 letter, 1 number</span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg cyan-box-glow" style="text-transform:uppercase;letter-spacing:0.1em;margin-top:0.5rem" id="signup-btn">
+          <span class="material-symbols-outlined" style="font-size:1.1rem">person_add</span>Create Account
+        </button>
+      </form>
+      <div class="text-center" style="margin-top:2rem">
+        <p style="font-size:0.875rem;color:var(--text-secondary)">Already have an account? <a href="{{ url_for('login') }}" style="font-weight:700;color:var(--cyan)">Login</a></p>
+      </div>
+      <div class="flex justify-center" style="margin-top:1.5rem">
+        <div style="background:rgba(38,42,55,0.4);padding:0.375rem 1rem;border-radius:2rem;display:flex;align-items:center;gap:0.5rem;border:1px solid rgba(59,73,76,0.1)">
+          <span class="material-symbols-outlined icon-filled" style="font-size:0.875rem;color:var(--cyan-dim)">lock</span>
+          <span style="font-size:0.625rem;color:var(--text-secondary)">Your data is encrypted and secure.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

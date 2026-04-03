@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}SafeCall Sentinel{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}SafeCall Sentinel — Advanced mobile security against call forwarding fraud, SMS phishing, and OTP theft.{% endblock %}"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="flash-container" id="flash-container">
+    {% for category, message in messages %}
+    <div class="flash-msg flash-{{ category }}">
+      <span class="material-symbols-outlined" style="font-size:18px">
+        {% if category == 'success' %}check_circle{% elif category == 'error' %}error{% else %}info{% endif %}
+      </span>
+      {{ message }}
+      <button class="flash-close" onclick="this.parentElement.classList.add('flash-exit');setTimeout(()=>this.parentElement.remove(),300)" aria-label="Close">
+        <span class="material-symbols-outlined" style="font-size:16px">close</span>
+      </button>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endwith %}
+
+  {% block body %}{% endblock %}
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

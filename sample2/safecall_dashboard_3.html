@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SafeCall Sentinel - Cybersecurity Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#3b494c",
+                        "inverse-surface": "#dfe2f3",
+                        "secondary-fixed-dim": "#98d0da",
+                        "on-tertiary-container": "#6f5500",
+                        "on-tertiary": "#3e2e00",
+                        "outline": "#849396",
+                        "tertiary-container": "#fec931",
+                        "on-secondary-fixed": "#001f24",
+                        "surface-container-lowest": "#0a0e1a",
+                        "on-secondary-container": "#8ac1cc",
+                        "surface-container-high": "#262a37",
+                        "surface-container": "#1b1f2c",
+                        "secondary-container": "#11505a",
+                        "on-secondary": "#00363d",
+                        "inverse-primary": "#006875",
+                        "on-tertiary-fixed-variant": "#594400",
+                        "on-primary-fixed-variant": "#004f58",
+                        "surface-tint": "#00daf3",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed": "#251a00",
+                        "on-primary": "#00363d",
+                        "on-error": "#690005",
+                        "primary": "#c3f5ff",
+                        "primary-fixed-dim": "#00daf3",
+                        "secondary": "#98d0da",
+                        "on-surface-variant": "#bac9cc",
+                        "error": "#ffb4ab",
+                        "surface": "#0f131f",
+                        "surface-dim": "#0f131f",
+                        "surface-container-highest": "#313442",
+                        "on-secondary-fixed-variant": "#0d4e57",
+                        "on-background": "#dfe2f3",
+                        "on-primary-fixed": "#001f24",
+                        "surface-variant": "#313442",
+                        "on-surface": "#dfe2f3",
+                        "inverse-on-surface": "#2c303d",
+                        "primary-container": "#00e5ff",
+                        "primary-fixed": "#9cf0ff",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdf96",
+                        "surface-bright": "#353946",
+                        "tertiary-fixed-dim": "#f3bf26",
+                        "tertiary": "#ffeac0",
+                        "on-primary-container": "#00626e",
+                        "surface-container-low": "#171b28",
+                        "secondary-fixed": "#b3ecf7",
+                        "background": "#0f131f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(23, 27, 40, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .pulse-glow {
+            box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+        }
+        .ghost-border {
+            border: 1px solid rgba(59, 73, 76, 0.15);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0a0e1a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3b494c;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar Component -->
+<nav class="fixed inset-y-0 left-0 flex flex-col z-40 h-screen w-64 border-r border-[#3b494c]/15 bg-[#0f131f] backdrop-blur-xl bg-opacity-60 shadow-[32px_0_64px_-20px_rgba(0,229,255,0.05)] font-['Inter'] antialiased tracking-tight">
+<div class="p-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center pulse-glow">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<div>
+<h1 class="text-xl font-black tracking-tighter text-[#c3f5ff]">SafeCall</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant/60">Luminous Sentinel</p>
+</div>
+</div>
+</div>
+<div class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-4 py-3 text-[#00e5ff] bg-[#171b28] border-r-2 border-[#00e5ff] font-bold active:scale-95 cursor-pointer transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#bac9cc] hover:text-[#c3f5ff] hover:bg-[#262a37] transition-all duration-300 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span>Messages</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#bac9cc] hover:text-[#c3f5ff] hover:bg-[#262a37] transition-all duration-300 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined">forward_to_inbox</span>
+<span>Call Forwarding</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#bac9cc] hover:text-[#c3f5ff] hover:bg-[#262a37] transition-all duration-300 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined">security</span>
+<span>OTP Checker</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#bac9cc] hover:text-[#c3f5ff] hover:bg-[#262a37] transition-all duration-300 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>SMS Analyzer</span>
+</a>
+</div>
+<div class="p-4 mt-auto">
+<div class="bg-surface-container-low p-4 rounded-xl ghost-border flex items-center gap-3">
+<div class="relative">
+<img alt="Surya" class="w-10 h-10 rounded-full border border-primary/20" data-alt="professional portrait of a young south asian man in a dark tech environment with subtle blue backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAC-AGwd0QzCqBgaFdoIIUdHWn2BR2yhNClzLF2FV1zGngZBYGjWXNfwbEXsXJGG4EhE-OSnfcRAiFZ0DoFzWjThEGuZdpRELYpAsenmL10L8P19BnFCSNJXp6SfcIrlHlGGH2emDP8h4aWIzc8cdeh15dKcuEIXRxgLotxYTvj1tucsOFZutOWSpilVibLrA2V_3_3nyQVt0UpvGr58R0xug3cboa1VQH2xwj1506eiXvebdPtE-lcSxGmSK_aX5fHYMl0dh0U6FwW"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-primary-container rounded-full border-2 border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[8px] text-on-primary-container font-bold">check</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-primary">Surya</span>
+<span class="text-[10px] text-primary-container uppercase font-black tracking-tighter">Protected ✓</span>
+</div>
+<button class="ml-auto text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">settings</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="ml-64 min-h-screen flex flex-col relative overflow-hidden">
+<!-- Abstract Background Glows -->
+<div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="absolute bottom-[-5%] left-[10%] w-[400px] h-[400px] bg-secondary/5 blur-[100px] rounded-full pointer-events-none"></div>
+<!-- TopAppBar Component -->
+<header class="flex items-center justify-between px-8 h-16 bg-[#0a0e1a]/80 backdrop-blur-md sticky top-0 z-30 transition-opacity duration-200">
+<div class="flex items-center gap-4">
+<span class="text-on-surface-variant font-medium text-sm">Dashboard / Overview</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative flex items-center bg-surface-container-lowest ghost-border rounded-lg px-3 py-1.5 w-64">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm text-on-surface placeholder:text-on-surface-variant/40 w-full" placeholder="Search activity..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border border-surface"></span>
+</button>
+<button class="hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-8 flex flex-col gap-8 flex-1 relative z-10">
+<!-- Hero Header -->
+<section>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase tracking-[0.3em] font-black text-primary-container">System Live</span>
+<h2 class="text-4xl font-extrabold tracking-tighter text-on-surface">Welcome back, Surya 👋</h2>
+<p class="text-on-surface-variant body-md max-w-2xl">Your personal sentinel is active. All communications are currently being filtered through the SafeCall verification layer.</p>
+</div>
+</section>
+<!-- Stat Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-low p-6 rounded-xl ghost-border relative group overflow-hidden transition-all duration-300 hover:bg-surface-container-high">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded bg-error-container/20 text-error">
+<span class="material-symbols-outlined">phishing</span>
+</div>
+<span class="text-[10px] font-bold text-error">+4 today</span>
+</div>
+<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider mb-1">Phishing Alerts Today</p>
+<h3 class="text-3xl font-black text-on-surface">12</h3>
+<div class="absolute bottom-0 left-0 h-[2px] w-full bg-error/20">
+<div class="h-full bg-error w-1/3 shadow-[0_0_8px_rgba(255,180,171,0.5)]"></div>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-low p-6 rounded-xl ghost-border relative group overflow-hidden transition-all duration-300 hover:bg-surface-container-high">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded bg-primary-container/20 text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">call</span>
+</div>
+<span class="text-[10px] font-bold text-primary-container">Active</span>
+</div>
+<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider mb-1">Call Forwarding Status</p>
+<h3 class="text-3xl font-black text-on-surface">Secured</h3>
+<div class="absolute bottom-0 left-0 h-[2px] w-full bg-primary-container/20">
+<div class="h-full bg-primary-container w-full shadow-[0_0_8px_rgba(0,229,255,0.5)]"></div>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-container-low p-6 rounded-xl ghost-border relative group overflow-hidden transition-all duration-300 hover:bg-surface-container-high">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded bg-tertiary-container/20 text-tertiary-container">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<span class="text-[10px] font-bold text-tertiary-container">Review Required</span>
+</div>
+<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider mb-1">Suspicious Messages</p>
+<h3 class="text-3xl font-black text-on-surface">03</h3>
+<div class="absolute bottom-0 left-0 h-[2px] w-full bg-tertiary-container/20">
+<div class="h-full bg-tertiary-container w-1/4 shadow-[0_0_8px_rgba(254,201,49,0.5)]"></div>
+</div>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-surface-container-low p-6 rounded-xl ghost-border relative group overflow-hidden transition-all duration-300 hover:bg-surface-container-high">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded bg-primary-fixed-dim/20 text-primary-fixed-dim">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<span class="text-[10px] font-bold text-primary-fixed-dim">Excellent</span>
+</div>
+<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider mb-1">Security Score</p>
+<h3 class="text-3xl font-black text-on-surface">91%</h3>
+<div class="absolute bottom-0 left-0 h-[2px] w-full bg-primary-fixed-dim/20">
+<div class="h-full bg-primary-fixed-dim w-[91%] shadow-[0_0_8px_rgba(0,218,243,0.5)]"></div>
+</div>
+</div>
+</div>
+<!-- Main Feature Area: Bento Style -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Recent Alerts Feed -->
+<div class="lg:col-span-2 bg-surface-container-low rounded-xl ghost-border flex flex-col overflow-hidden">
+<div class="p-6 border-b border-[#3b494c]/15 flex items-center justify-between">
+<div>
+<h3 class="text-xl font-bold text-on-surface">Recent Alerts</h3>
+<p class="text-xs text-on-surface-variant">Real-time analysis of incoming traffic</p>
+</div>
+<button class="px-4 py-2 bg-surface-container-high text-primary text-xs font-bold rounded-lg border border-primary/10 hover:bg-primary hover:text-on-primary transition-all">
+                            View All History
+                        </button>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left">
+<thead class="text-[10px] uppercase tracking-widest text-on-surface-variant/60 bg-surface-container-high/50">
+<tr>
+<th class="px-6 py-4 font-bold">Category</th>
+<th class="px-6 py-4 font-bold">Sender ID</th>
+<th class="px-6 py-4 font-bold">Message Preview</th>
+<th class="px-6 py-4 font-bold">Time</th>
+<th class="px-6 py-4 font-bold">Risk Level</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#3b494c]/10">
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4">
+<span class="w-8 h-8 rounded flex items-center justify-center bg-tertiary-container/10 text-tertiary-container font-black text-xs">G</span>
+</td>
+<td class="px-6 py-4 font-medium text-sm">IncomeTax-Gov</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant max-w-xs truncate">Your tax refund for FY 2023-24 has been processed...</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">10:45 AM</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-black uppercase tracking-tighter bg-surface-container-highest text-on-surface-variant">SAFE</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4">
+<span class="w-8 h-8 rounded flex items-center justify-center bg-error-container/20 text-error font-black text-xs">PHISH</span>
+</td>
+<td class="px-6 py-4 font-medium text-sm text-error">+1 800-SAFE-01</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant max-w-xs truncate">URGENT: Your SafeCall account is locked. Click here to verify...</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">09:12 AM</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-black uppercase tracking-tighter bg-error text-on-error">HIGH</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4">
+<span class="w-8 h-8 rounded flex items-center justify-center bg-primary-container/10 text-primary-container font-black text-xs">T</span>
+</td>
+<td class="px-6 py-4 font-medium text-sm">HDFC-BANK</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant max-w-xs truncate">Trans: INR 2,500.00 spent on Zomato. Total Bal: INR...</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">08:30 AM</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-black uppercase tracking-tighter bg-surface-container-highest text-on-surface-variant">SAFE</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4">
+<span class="w-8 h-8 rounded flex items-center justify-center bg-secondary-container/20 text-secondary font-black text-xs">P</span>
+</td>
+<td class="px-6 py-4 font-medium text-sm">FLIPKART</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant max-w-xs truncate">Biggest Sale of the Season! 70% Off on Electronics. Grab...</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">Yesterday</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-black uppercase tracking-tighter bg-surface-container-high text-secondary">MEDIUM</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Secondary Data Module -->
+<div class="flex flex-col gap-6">
+<!-- Threat Map Preview -->
+<div class="bg-surface-container-low rounded-xl ghost-border p-6 flex-1 overflow-hidden relative group">
+<h4 class="text-sm font-bold text-on-surface mb-4">Origin Heatmap</h4>
+<div class="h-48 rounded-lg bg-surface-container-lowest overflow-hidden relative">
+<img class="w-full h-full object-cover opacity-40 grayscale group-hover:scale-105 transition-transform duration-700" data-alt="abstract stylized world map with glowing cyan connection lines and data points on a dark background" data-location="Global" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqvKPoQV-0z9zAAjxLwQHyOflCnnGddjarhppDLZC2af5opCfv_wim8MxWb8LzMmpWggrwjPJe6BsqmcSn-umOrSOmU_VXapEDKva0foIhvlnLsMO6KaFCWn2VBO9tlwsVnLZkZUBDOImOyCjUcGCzcTcUnBRm3oUt3xqyr5Sr944rxBM9R_J-c4350g_145ZY6XUFmhFC4BMiH12g_OLyHgu7G9s8wEgSWDFJ5fYSsHYD466k6MSm-553XVz8dnqrlFSZKkStQ1RI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+<div class="absolute top-1/2 left-1/3 w-2 h-2 bg-primary rounded-full animate-ping"></div>
+<div class="absolute top-1/4 right-1/4 w-2 h-2 bg-error rounded-full"></div>
+</div>
+<div class="mt-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-primary rounded-full"></span>
+<span class="text-[10px] text-on-surface-variant">Safe Traffic</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-error rounded-full"></span>
+<span class="text-[10px] text-on-surface-variant">Blocked Attacks</span>
+</div>
+</div>
+</div>
+<!-- Rapid Response Panel -->
+<div class="bg-primary-container p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-20">
+<span class="material-symbols-outlined text-6xl text-on-primary-container">shield_with_heart</span>
+</div>
+<h4 class="text-on-primary-container font-black text-lg mb-2 relative z-10">SafeScan AI</h4>
+<p class="text-on-primary-container/80 text-xs mb-4 relative z-10">Deploy a deep-packet inspection on your last 100 messages for hidden payloads.</p>
+<button class="w-full py-3 bg-on-primary-container text-primary-container font-black text-xs uppercase tracking-widest rounded-lg transition-transform active:scale-95 relative z-10">
+                            Initiate Deep Scan
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Elements -->
+<footer class="p-8 mt-auto flex items-center justify-between border-t border-[#3b494c]/10 text-on-surface-variant/40">
+<span class="text-[10px] uppercase tracking-widest">© 2024 SafeCall Technologies • Internal Sentinel V2.4.1</span>
+<div class="flex gap-4">
+<span class="text-[10px] uppercase tracking-widest">Privacy Protocol</span>
+<span class="text-[10px] uppercase tracking-widest">Terms of Vigilance</span>
+</div>
+</footer>
+</main>
+<!-- FAB (Suppressed as per rules for Dashboard/Overview context unless perfectly aligned) -->
+<!-- The user request didn't explicitly ask for a FAB, but the rules say render if it aligns. A 'New Call Scan' FAB could be useful. -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary-container text-on-primary-container rounded-full shadow-[0_0_24px_rgba(0,229,255,0.4)] flex items-center justify-center transition-transform hover:scale-110 active:scale-90 z-50">
+<span class="material-symbols-outlined text-3xl">add_moderator</span>
+</button>
+</body></html>

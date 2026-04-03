@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SafeCall | Advanced Mobile Security</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffdf96",
+                        "surface": "#0f131f",
+                        "inverse-on-surface": "#2c303d",
+                        "tertiary": "#ffeac0",
+                        "outline": "#849396",
+                        "on-primary-fixed-variant": "#004f58",
+                        "error": "#ffb4ab",
+                        "secondary-fixed-dim": "#98d0da",
+                        "inverse-primary": "#006875",
+                        "on-tertiary-container": "#6f5500",
+                        "on-secondary-fixed-variant": "#0d4e57",
+                        "surface-variant": "#313442",
+                        "surface-tint": "#00daf3",
+                        "surface-container-lowest": "#0a0e1a",
+                        "on-secondary": "#00363d",
+                        "surface-dim": "#0f131f",
+                        "on-primary": "#00363d",
+                        "on-tertiary-fixed-variant": "#594400",
+                        "surface-container": "#1b1f2c",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#b3ecf7",
+                        "on-tertiary-fixed": "#251a00",
+                        "on-surface": "#dfe2f3",
+                        "on-secondary-fixed": "#001f24",
+                        "background": "#0f131f",
+                        "on-surface-variant": "#bac9cc",
+                        "outline-variant": "#3b494c",
+                        "on-background": "#dfe2f3",
+                        "on-secondary-container": "#8ac1cc",
+                        "on-error": "#690005",
+                        "primary-container": "#00e5ff",
+                        "surface-container-highest": "#313442",
+                        "tertiary-container": "#fec931",
+                        "inverse-surface": "#dfe2f3",
+                        "primary-fixed": "#9cf0ff",
+                        "secondary-container": "#11505a",
+                        "on-primary-container": "#00626e",
+                        "on-primary-fixed": "#001f24",
+                        "primary": "#c3f5ff",
+                        "surface-container-low": "#171b28",
+                        "surface-bright": "#353946",
+                        "secondary": "#98d0da",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#00daf3",
+                        "tertiary-fixed-dim": "#f3bf26",
+                        "on-tertiary": "#3e2e00",
+                        "surface-container-high": "#262a37"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0a0e1a; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .cyan-glow {
+            text-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+        }
+        .surface-glass {
+            backdrop-filter: blur(20px);
+            background-color: rgba(23, 27, 40, 0.6);
+        }
+    </style>
+</head>
+<body class="text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0a0e1a]/60 backdrop-blur-xl shadow-[0_0_20px_rgba(0,229,255,0.05)] bg-gradient-to-b from-[#171b28]/10 to-transparent">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 py-4">
+<div class="text-2xl font-black tracking-tighter text-[#c3f5ff]">SafeCall</div>
+<div class="hidden md:flex items-center gap-8 font-['Inter'] tracking-tight headline-sm font-bold">
+<a class="text-[#00e5ff] border-b-2 border-[#00e5ff] pb-1 transition-all active:scale-95 duration-200 ease-in-out" href="index.html">Home</a>
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors transition-all active:scale-95 duration-200 ease-in-out" href="safecall_dashboard_3.html">Dashboard</a>
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors transition-all active:scale-95 duration-200 ease-in-out" href="safecall_awareness__safety_tips_5.html">Awareness</a>
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors transition-all active:scale-95 duration-200 ease-in-out" href="safecall_login_page_6.html">Login</a>
+</div>
+<a href="safecall_sign_up_page_0.html" class="bg-[#00e5ff] text-[#00363d] px-6 py-2 rounded-md font-bold transition-all hover:bg-[#c3f5ff] active:scale-95 duration-200 shadow-[0_0_12px_rgba(0,229,255,0.3)]">
+                Get Protected
+            </a>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-surface-container-lowest">
+<!-- Ambient Background Effect -->
+<div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-primary-container/5 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-5%] left-[-5%] w-[400px] h-[400px] bg-secondary-container/10 rounded-full blur-[100px]"></div>
+<div class="max-w-7xl mx-auto px-8 w-full relative z-10 grid md:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant/20">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="text-xs font-bold tracking-widest uppercase text-on-surface-variant">Live Threat Monitoring</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-tight text-on-surface">
+                    Protect Your <span class="text-primary-container cyan-glow">Phone.</span><br/>
+                    Protect Your <span class="text-primary-container cyan-glow">Money.</span>
+</h1>
+<p class="text-xl text-on-surface-variant leading-relaxed max-w-lg">
+                    SafeCall helps you detect call forwarding, stop OTP fraud, and identify phishing messages before scammers strike.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 pt-4">
+<a href="safecall_call_forwarding_checker_8.html" class="px-8 py-4 bg-primary-container text-on-primary-container font-bold rounded-md shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:brightness-110 active:scale-95 transition-all text-center">
+                        Check My Number Now
+                    </a>
+<a href="safecall_dashboard_3.html" class="px-8 py-4 bg-surface-container-high text-primary font-bold rounded-md border border-outline-variant/15 hover:bg-surface-variant active:scale-95 transition-all text-center">
+                        View Demo
+                    </a>
+</div>
+</div>
+<div class="relative hidden md:block">
+<div class="relative z-10 surface-glass p-8 rounded-xl border border-outline-variant/15 shadow-2xl">
+<img alt="Cybersecurity Dashboard" class="rounded-lg opacity-90" data-alt="Modern high-tech smartphone interface displaying active security scans and digital shield overlay in neon cyan and deep navy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-n82GYV_8agR0DUOtV0c5gmBWyeVid9J4km8n5L62VBeU8tUuOovYri-NtW3tNIhRibEDCqrYVMlCUGND9OyXgCGWjfkbQaw_kVUHWViGgaNJWaOV0_yVNugrPEIBxAvj8kcOgzvv812so2uyszx3OLGPuz_S56QZle5OxAYuikbVGXQGm-ZVvzoCpPugcIpuxbEST4NUK2PRE2F-NTN6oB2mNJ_DQhCg2b0FkXP4b3KhDqE1jX7CaqGf6uv7Kraog0pyolIHMQ9Q"/>
+<div class="absolute -bottom-6 -right-6 bg-surface-container-highest p-4 rounded-lg border border-outline-variant/20 shadow-xl">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary-container/20 rounded-md">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div>
+<div class="text-xs text-on-surface-variant font-bold uppercase tracking-wider">Device Status</div>
+<div class="text-sm font-bold text-primary">Fully Protected</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Geometric accents -->
+<div class="absolute -top-10 -left-10 w-32 h-32 border-l-2 border-t-2 border-primary-container/20"></div>
+<div class="absolute -bottom-10 -right-10 w-32 h-32 border-r-2 border-b-2 border-primary-container/20"></div>
+</div>
+</div>
+</section>
+<!-- Stats Bar -->
+<section class="bg-surface-container-low py-12 relative overflow-hidden">
+<div class="max-w-7xl mx-auto px-8 relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-center gap-12">
+<div class="text-center md:text-left">
+<div class="text-4xl font-black text-on-surface">2.4M</div>
+<div class="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Scams Blocked</div>
+</div>
+<div class="w-px h-12 bg-outline-variant/20 hidden md:block"></div>
+<div class="text-center md:text-left">
+<div class="text-4xl font-black text-primary-container cyan-glow">98.7%</div>
+<div class="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Accuracy Rate</div>
+</div>
+<div class="w-px h-12 bg-outline-variant/20 hidden md:block"></div>
+<div class="text-center md:text-left">
+<div class="text-4xl font-black text-on-surface">50K+</div>
+<div class="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Users Protected</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-32 bg-surface">
+<div class="max-w-7xl mx-auto px-8">
+<div class="text-center mb-24 space-y-4">
+<h2 class="text-xs font-bold tracking-[0.3em] uppercase text-primary-container">Next-Gen Protection</h2>
+<h3 class="text-4xl md:text-5xl font-black tracking-tight text-on-surface">Enterprise-Grade Defense for Everyone</h3>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="group bg-surface-container-low p-10 rounded-xl border border-outline-variant/10 hover:border-primary-container/30 transition-all duration-500 hover:bg-surface-container">
+<div class="w-16 h-16 bg-surface-container-high rounded-lg flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-4xl text-primary-container" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 text-on-surface">Real-Time Scam Detection</h4>
+<p class="text-on-surface-variant leading-relaxed">Our AI-driven engine analyzes incoming call patterns and SMS content instantly to flag fraudulent activity before you even pick up.</p>
+</div>
+<!-- Card 2 -->
+<div class="group bg-surface-container-low p-10 rounded-xl border border-outline-variant/10 hover:border-primary-container/30 transition-all duration-500 hover:bg-surface-container">
+<div class="w-16 h-16 bg-surface-container-high rounded-lg flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-4xl text-primary-container" style="font-variation-settings: 'FILL' 1;">phone_iphone</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 text-on-surface">Call Forwarding Monitor</h4>
+<p class="text-on-surface-variant leading-relaxed">Stop silent eavesdropping. SafeCall monitors your network settings to ensure calls aren't being surreptitiously redirected to external servers.</p>
+</div>
+<!-- Card 3 -->
+<div class="group bg-surface-container-low p-10 rounded-xl border border-outline-variant/10 hover:border-primary-container/30 transition-all duration-500 hover:bg-surface-container">
+<div class="w-16 h-16 bg-surface-container-high rounded-lg flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-4xl text-primary-container" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<h4 class="text-2xl font-bold mb-4 text-on-surface">Government Message Verification</h4>
+<p class="text-on-surface-variant leading-relaxed">Never question a tax or legal notice again. Our cryptographic verification ensures messages from authorities are legitimate and tamper-proof.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Content / Asymmetric Section -->
+<section class="py-32 bg-surface-container-lowest overflow-hidden">
+<div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row items-center gap-16">
+<div class="w-full md:w-1/2">
+<div class="relative">
+<div class="aspect-square bg-gradient-to-br from-primary-container/20 to-transparent rounded-full absolute -top-10 -left-10 w-full animate-pulse"></div>
+<img alt="Secure Data" class="relative z-10 rounded-2xl grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl" data-alt="Digital encryption concept with glowing blue data streams and circuit patterns representing high-security communication channels" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9A69yiqdMtZ9ZFJeG9kmdkzuoQifbe_RcL1Zew92XXf3Fbe9wVoPNv2cptQIUUVwvqBb630_oISF4oChBfWvEYn_kvE8PKp08Vqf2fOpm7XX0wfsfeg-Y2VgrOch8JL1wbcteTD4O_1w-dzL0HYzAEYgd_1KYW3EgVsM0A57cex4Tlrzh7EMRwvCal-IRSnB5RXO-8rdqStZYDheFvm8O-Bz1HXPOb7Ev74Tkkkd12ZOOfVw5jP_EXpvhAXIffmXFCRYqW977Xep4"/>
+</div>
+</div>
+<div class="w-full md:w-1/2 space-y-6">
+<div class="text-sm font-black text-primary-container tracking-[0.4em] uppercase">Why Choose Us</div>
+<h2 class="text-4xl font-extrabold text-on-surface tracking-tight">The Silent Sentinel in Your Pocket</h2>
+<p class="text-on-surface-variant text-lg">Modern fraud doesn't look like a computer virus; it looks like a text from your bank or a call from the police. SafeCall operates at the network level to identify the digital fingerprint of scammers.</p>
+<ul class="space-y-4">
+<li class="flex items-center gap-4 text-on-surface">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<span>Zero-latency background scanning</span>
+</li>
+<li class="flex items-center gap-4 text-on-surface">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<span>Global database of blacklisted numbers</span>
+</li>
+<li class="flex items-center gap-4 text-on-surface">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<span>End-to-end encrypted notification log</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full border-t border-[#3b494c]/15 tonal-shift bg-[#0f131f] flat-no-shadows">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-10 gap-6 w-full max-w-7xl mx-auto">
+<div class="text-xl font-bold text-[#c3f5ff] font-['Inter']">SafeCall</div>
+<div class="flex flex-wrap justify-center gap-8 font-['Inter'] text-sm font-medium tracking-wide">
+<a class="text-[#bac9cc] hover:text-[#00e5ff] transition-colors cursor-pointer transition-opacity hover:opacity-80" href="#">Terms</a>
+<a class="text-[#bac9cc] hover:text-[#00e5ff] transition-colors cursor-pointer transition-opacity hover:opacity-80" href="#">Privacy</a>
+<a class="text-[#bac9cc] hover:text-[#00e5ff] transition-colors cursor-pointer transition-opacity hover:opacity-80" href="#">Twitter</a>
+<a class="text-[#bac9cc] hover:text-[#00e5ff] transition-colors cursor-pointer transition-opacity hover:opacity-80" href="#">LinkedIn</a>
+</div>
+<div class="text-[#bac9cc] font-['Inter'] text-sm font-medium tracking-wide">
+                © 2024 SafeCall. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

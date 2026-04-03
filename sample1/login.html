@@ -19,9 +19,18 @@
             theme: {
                 extend: {
                     colors: {
-                        "surface": "#10131a", "surface-container": "#1d2026", "on-surface": "#e1e2eb",
-                        "on-surface-variant": "#c4c6cc", "primary": "#00daf3", "on-primary": "#00363d",
-                        "secondary": "#bbc6e2", "outline-variant": "#44474c", "background": "#10131a",
+                        "surface": "#10131a", "surface-container": "#1d2026", "surface-container-low": "#191c22",
+                        "surface-container-lowest": "#0b0e14", "surface-container-high": "#272a31",
+                        "surface-container-highest": "#32353c", "surface-bright": "#363940",
+                        "surface-variant": "#32353c", "on-surface": "#e1e2eb", "on-surface-variant": "#c4c6cc",
+                        "primary": "#00daf3", "on-primary": "#00363d", "primary-container": "#001e22",
+                        "on-primary-container": "#0090a1", "on-primary-fixed": "#001f24",
+                        "on-primary-fixed-variant": "#004f58",
+                        "secondary": "#bbc6e2", "secondary-container": "#3e4960",
+                        "tertiary": "#4edea3", "tertiary-container": "#001f12",
+                        "error": "#ffb4ab", "error-container": "#93000a", "on-error": "#690005",
+                        "outline": "#8e9196", "outline-variant": "#44474c",
+                        "background": "#10131a", "on-background": "#e1e2eb",
                     },
                     fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] },
                     borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
@@ -33,10 +42,26 @@
 
     <style>
         /* Fallback Styles */
-        :root { --surface: #10131a; --on-surface: #e1e2eb; --primary: #00daf3; }
+        :root {
+            --surface: #10131a;
+            --surface-container-lowest: #0b0e14;
+            --on-surface: #e1e2eb;
+            --on-surface-variant: #c4c6cc;
+            --primary: #00daf3;
+            --on-primary-fixed: #001f24;
+            --outline: #8e9196;
+            --outline-variant: #44474c;
+            --secondary: #bbc6e2;
+        }
         body { background-color: var(--surface) !important; color: var(--on-surface) !important; font-family: 'Inter', sans-serif; margin: 0; }
         h1, h2, h3, .font-headline { font-family: 'Space Grotesk', sans-serif; }
         .text-primary { color: var(--primary) !important; }
+        .text-on-surface-variant { color: var(--on-surface-variant) !important; }
+        .text-secondary { color: var(--secondary) !important; }
+        .text-outline { color: var(--outline) !important; }
+        .bg-surface-container-lowest { background-color: var(--surface-container-lowest) !important; }
+        .border-outline-variant { border-color: var(--outline-variant) !important; }
+        .text-on-primary-fixed { color: var(--on-primary-fixed) !important; }
         .glass-panel { background: rgba(50, 53, 60, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
         .obsidian-gradient { background: linear-gradient(135deg, #00daf3 0%, #0090a1 100%); }
         .radial-glow { background: radial-gradient(circle at 50% 50%, rgba(0, 218, 243, 0.08) 0%, transparent 70%); }

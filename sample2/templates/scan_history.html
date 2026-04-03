@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Scan History — SafeCall Sentinel{% endblock %}
+{% block body %}
+<!-- Mobile Sidebar Toggle -->
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open sidebar">
+  <span class="material-symbols-outlined">menu</span>
+</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><div class="sidebar-brand-icon"><span class="material-symbols-outlined">shield</span></div><div><h1>SafeCall</h1><p>Luminous Sentinel</p></div></div>
+  <nav class="sidebar-nav">
+    <a href="{{ url_for('dashboard') }}" class="sidebar-link"><span class="material-symbols-outlined">dashboard</span>Overview</a>
+    <a href="{{ url_for('sms_analyzer') }}" class="sidebar-link"><span class="material-symbols-outlined">analytics</span>SMS Analyzer</a>
+    <a href="{{ url_for('call_checker') }}" class="sidebar-link"><span class="material-symbols-outlined">phone_forwarded</span>Call Checker</a>
+    <a href="{{ url_for('awareness') }}" class="sidebar-link"><span class="material-symbols-outlined">school</span>Awareness</a>
+    <a href="{{ url_for('scan_history') }}" class="sidebar-link active"><span class="material-symbols-outlined">history</span>Scan History</a>
+    <a href="{{ url_for('profile') }}" class="sidebar-link"><span class="material-symbols-outlined">person</span>Profile</a>
+  </nav>
+  <div class="sidebar-user"><div class="sidebar-avatar">{{ current_user.full_name[0] }}</div><div style="flex:1"><div style="font-size:0.875rem;font-weight:700;color:var(--cyan-light)">{{ current_user.full_name }}</div><div style="font-size:0.625rem;color:var(--cyan);font-weight:800;text-transform:uppercase">Protected ✓</div></div><a href="{{ url_for('logout') }}" style="color:var(--text-secondary)"><span class="material-symbols-outlined" style="font-size:1.2rem">logout</span></a></div>
+</aside>
+
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="main-content" style="margin-left:260px;min-height:100vh;padding:2rem">
+  <div style="max-width:960px;margin:0 auto">
+    <div style="margin-bottom:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div>
+        <span class="text-label text-cyan" style="font-size:0.6rem;letter-spacing:0.3em">Forensic Log</span>
+        <h2 style="font-size:2.2rem;font-weight:800;letter-spacing:-0.03em">Scan History</h2>
+        <p class="text-muted">View all previously analyzed messages and their threat assessments.</p>
+      </div>
+      <a href="{{ url_for('sms_analyzer') }}" class="btn btn-primary"><span class="material-symbols-outlined" style="font-size:1rem">add</span>New Scan</a>
+    </div>
+
+    {% if scans.items %}
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      {% for scan in scans.items %}
+      <div class="card" style="transition:all 0.3s;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;width:4px;height:100%;{% if scan.risk_score > 60 %}background:var(--error){% elif scan.risk_score > 30 %}background:var(--warning){% else %}background:#4ade80{% endif %}"></div>
+        <div style="padding-left:1rem">
+          <div class="flex justify-between items-center" style="margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem">
+            <div class="flex items-center gap-3">
+              <span class="badge badge-{{ 'high' if scan.risk_score > 60 else ('medium' if scan.risk_score > 30 else 'safe') }}">{{ scan.verdict }}</span>
+              <span class="text-label text-muted">{{ scan.category }}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span style="font-size:1.1rem;font-weight:900;{% if scan.risk_score > 60 %}color:var(--error){% elif scan.risk_score > 30 %}color:var(--warning){% else %}color:#4ade80{% endif %}">{{ scan.risk_score }}/100</span>
+              <span class="text-muted" style="font-size:0.75rem">{{ scan.created_at.strftime('%b %d, %Y %I:%M %p') if scan.created_at else '' }}</span>
+            </div>
+          </div>
+          <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin-bottom:0.5rem">{{ scan.message_text[:200] }}{% if scan.message_text|length > 200 %}...{% endif %}</p>
+          {% if scan.keywords_found and scan.keywords_found != '[]' %}
+          <div style="display:flex;flex-wrap:wrap;gap:0.25rem;margin-top:0.5rem">
+            {% for kw in scan.keywords_found | fromjson %}
+            <span class="keyword-tag" style="font-size:0.5rem">{{ kw }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if scans.pages > 1 %}
+    <div class="flex justify-center gap-2" style="margin-top:2rem">
+      {% if scans.has_prev %}
+      <a href="{{ url_for('scan_history', page=scans.prev_num) }}" class="btn btn-secondary btn-sm"><span class="material-symbols-outlined" style="font-size:0.875rem">chevron_left</span>Previous</a>
+      {% endif %}
+      <span class="text-muted" style="padding:0.5rem 1rem;font-size:0.875rem">Page {{ scans.page }} of {{ scans.pages }}</span>
+      {% if scans.has_next %}
+      <a href="{{ url_for('scan_history', page=scans.next_num) }}" class="btn btn-secondary btn-sm">Next<span class="material-symbols-outlined" style="font-size:0.875rem">chevron_right</span></a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="card text-center" style="padding:4rem 2rem">
+      <span class="material-symbols-outlined" style="font-size:4rem;color:var(--text-muted);opacity:0.3;margin-bottom:1rem;display:block">search_off</span>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:0.5rem">No Scans Yet</h3>
+      <p class="text-muted" style="margin-bottom:1.5rem">Start analyzing suspicious messages with our SMS Phishing Analyzer.</p>
+      <a href="{{ url_for('sms_analyzer') }}" class="btn btn-primary"><span class="material-symbols-outlined" style="font-size:1rem">analytics</span>Analyze First Message</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

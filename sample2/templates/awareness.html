@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}SafeCall Awareness | Stay Informed. Stay Safe.{% endblock %}
+{% block body %}
+<nav class="navbar"><div class="navbar-inner">
+  <a href="{{ url_for('home') }}" class="navbar-brand">SafeCall</a>
+  <div class="navbar-links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('awareness') }}" class="active">Awareness</a>
+    {% if current_user.is_authenticated %}<a href="{{ url_for('dashboard') }}">Dashboard</a>{% endif %}
+    {% if not current_user.is_authenticated %}<a href="{{ url_for('login') }}">Login</a>{% endif %}
+  </div>
+  <div class="flex gap-3 items-center">
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-sm">Dashboard</a>
+    {% else %}
+    <a href="{{ url_for('login') }}" class="btn btn-primary btn-sm">Login</a>
+    {% endif %}
+    <button class="mobile-menu-btn" aria-label="Menu"><span class="material-symbols-outlined">menu</span></button>
+  </div>
+</div></nav>
+
+<main style="padding:8rem 2rem 4rem;max-width:1280px;margin:0 auto">
+  <header style="margin-bottom:5rem">
+    <span class="text-label text-cyan" style="letter-spacing:0.2em;margin-bottom:1rem;display:block">Cyber Defense Academy</span>
+    <h1 class="text-display">Stay Informed.<br/><span class="text-cyan">Stay Safe.</span></h1>
+    <p class="text-muted" style="font-size:1.2rem;max-width:640px;margin-top:1.5rem;line-height:1.7">The frontline of security isn't just code—it's your awareness. Learn to identify, intercept, and neutralize modern social engineering tactics.</p>
+  </header>
+
+  <!-- Educational Cards -->
+  <div class="awareness-grid" style="margin-bottom:5rem">
+    <div class="card" style="position:relative;overflow:hidden">
+      <div style="position:absolute;right:-2rem;top:-2rem;opacity:0.05"><span class="material-symbols-outlined" style="font-size:12rem">phone_forwarded</span></div>
+      <div style="position:relative;z-index:10">
+        <div style="width:48px;height:48px;background:rgba(0,229,255,0.08);display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);margin-bottom:1.5rem">
+          <span class="material-symbols-outlined text-cyan">phone_callback</span>
+        </div>
+        <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:1rem">What is Call Forwarding Fraud?</h3>
+        <p class="text-muted" style="line-height:1.7;margin-bottom:1.5rem">Scammers trick you into dialing a code (like *401*number#) that forwards all your incoming calls to their device. This allows them to intercept voice-based OTPs and bypass your security measures.</p>
+        <div class="flex items-center gap-2" style="color:var(--cyan-light);font-weight:700;font-size:0.875rem"><span class="material-symbols-outlined" style="font-size:1rem">shield_lock</span>NEVER DIAL CODES SENT BY STRANGERS</div>
+      </div>
+    </div>
+    <div class="card" style="background:var(--bg-container-high)">
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:2rem">How OTP Theft Happens</h3>
+      <div class="flex items-center justify-between gap-4" style="flex-wrap:wrap">
+        {% for step in [('call','Scammer calls claiming urgency',false),('dialpad','User dials a secret code',false),('multiple_stop','OTP diverted to attacker',false),('dangerous','Account Hacked',true)] %}
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.75rem;flex:1;min-width:100px">
+          <div style="width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid {% if step[2] %}rgba(255,180,171,0.3){% else %}rgba(0,229,255,0.15){% endif %};{% if step[2] %}background:rgba(147,0,10,0.12){% else %}background:var(--bg-container-highest){% endif %}">
+            <span class="material-symbols-outlined" style="{% if step[2] %}color:var(--error){% else %}color:var(--cyan){% endif %}">{{ step[0] }}</span>
+          </div>
+          <span style="font-size:0.8rem;font-weight:{% if step[2] %}700{% else %}500{% endif %};{% if step[2] %}color:var(--error){% endif %}">{{ step[1] }}</span>
+        </div>
+        {% if not loop.last %}<span class="material-symbols-outlined text-muted md-hide">arrow_forward</span>{% endif %}
+        {% endfor %}
+      </div>
+      <div style="margin-top:2rem;padding:1rem;background:rgba(10,14,26,0.4);border-radius:var(--radius-md);border-left:4px solid var(--cyan)">
+        <p class="text-label" style="font-size:0.6rem;color:var(--text-muted);margin-bottom:0.25rem">Defense Protocol</p>
+        <p style="font-size:0.875rem">SafeCall monitors unusual call-forwarding settings and alerts you immediately if your communications are redirected.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to Spot Fake Messages -->
+  <div class="card" style="padding:2.5rem;margin-bottom:5rem">
+    <div class="spot-fake-grid">
+      <div>
+        <h3 style="font-size:1.8rem;font-weight:900;letter-spacing:-0.02em;margin-bottom:1.5rem">How to Spot a Fake Message</h3>
+        <div style="display:flex;flex-direction:column;gap:1.25rem">
+          {% for item in [('priority_high','Artificial Sense of Urgency','Phrases like "Action Required" or "Account Locked" to force a panic reaction.'),('link_off','Suspicious Links','URLs that look similar but aren\'t official (e.g., faceb00k.com).'),('person_search','Unknown or Hidden Sender','International numbers pretending to be your bank.'),('spellcheck','Poor Grammar & Formatting','Professional organizations rarely send texts with typos.'),('lock_reset','Requests for Personal Info','Legitimate banks will never ask for your PIN, OTP, or password via text.')] %}
+          <div class="flex gap-4" style="align-items:flex-start">
+            <span class="material-symbols-outlined text-cyan" style="margin-top:2px">{{ item[0] }}</span>
+            <div><span style="font-weight:700;display:block">{{ item[1] }}</span><span class="text-muted" style="font-size:0.875rem">{{ item[2] }}</span></div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuANdfj2IzYQDH2z-FYB7L3uvuDk3SfNKlNi_gKhUvpxmG7x9hcypjJTjdY3-gPr05Ye268yEJA-CYdJe6GYN-01OcCLC8xxF_nsVjDt1si8-_lfWglj_KjMXvVajwXanhDjRAl962VIHIIKtG-k7rTWadcQi234ydA5XBnYaJvGkuTz2bzLywdMQXR3lHsmvVuEyVWExMAhwL9RQ_ufTsa6Iy-jWIhEktKHxINrCn0LMtL8jGRtoPlWFz8PN3WLyKs2DsZN5jE3rQ2T" alt="Security visualization" style="border-radius:var(--radius-xl);box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);max-width:400px;border:1px solid rgba(59,73,76,0.2)"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- Real Scam Examples -->
+  <section style="margin-bottom:5rem">
+    <div style="margin-bottom:2rem"><h2 style="font-size:2rem;font-weight:900;letter-spacing:-0.02em;margin-bottom:0.5rem">Real Scam Examples</h2><div style="height:4px;width:96px;background:var(--cyan);border-radius:2px"></div></div>
+    <div class="grid grid-3 gap-8">
+      {% for sms in [
+        ('+44 7800 123456','Mobile • 2m ago','DANGER','URGENT: Your account is locked. Verify at https://bank-secure-verify.net/login or funds will be frozen.','error'),
+        ('LOTT-WINNER','SMS • 1h ago','SUSPICIOUS','Congratulations! You won $1,000,000. Reply with your bank details to claim instantly.','cyan'),
+        ('TRAI-ALRT','Official-Looking • 4h ago','CRITICAL','Your mobile will be disconnected within 2 hours by TRAI. Dial *401*9876543210# to update KYC.','error')
+      ] %}
+      <div class="card" style="background:var(--bg-container-high)">
+        <div class="flex items-center gap-3" style="margin-bottom:1rem">
+          <div style="width:40px;height:40px;background:var(--bg-container-highest);border-radius:50%;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined text-muted">person</span></div>
+          <div><p style="font-size:0.75rem;font-weight:700;color:var(--text-secondary)">{{ sms[0] }}</p><p style="font-size:0.625rem;color:var(--text-muted);text-transform:uppercase">{{ sms[1] }}</p></div>
+        </div>
+        <div style="background:var(--bg-container-highest);padding:1rem;border-radius:0 var(--radius-lg) var(--radius-lg) var(--radius-lg);border:1px solid rgba({% if sms[4] == 'error' %}255,180,171{% else %}0,229,255{% endif %},0.08)">
+          <span class="text-label" style="font-size:0.6rem;color:var(--{{ sms[4] }});display:block;margin-bottom:0.25rem">{{ sms[2] }}</span>
+          {{ sms[3] }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Emergency Helplines -->
+  <section style="background:rgba(0,229,255,0.03);border-radius:var(--radius-xl);padding:3rem;border:1px solid rgba(0,229,255,0.12)">
+    <div class="helpline-grid">
+      <div>
+        <h2 style="font-size:2rem;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem">Emergency Helplines</h2>
+        <p class="text-muted">If you've been compromised, contact these authorities immediately. Every second counts.</p>
+      </div>
+      <div class="grid grid-3 gap-6">
+        {% for hl in [('Cyber Crime','1930','National Cyber Crime Portal'),('TRAI','1800-110-420','Telecom Regulatory Authority'),('RBI','14440','Financial Fraud Assistance')] %}
+        <div class="card helpline-card">
+          <p class="text-label text-muted" style="margin-bottom:0.5rem">{{ hl[0] }}</p>
+          <p style="font-size:1.75rem;font-weight:900;color:var(--cyan)">{{ hl[1] }}</p>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem">{{ hl[2] }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"><div class="footer-inner">
+  <div><span style="font-size:1.1rem;font-weight:700;color:var(--cyan-light)">SafeCall Sentinel</span><p style="font-size:0.875rem;color:var(--text-secondary);margin-top:0.25rem">© 2026 SafeCall Sentinel. All rights reserved.</p></div>
+  <div class="flex gap-8"><a href="#">Emergency Helpline</a><a href="#">Privacy Protocol</a><a href="#">Security Audit</a></div>
+</div></footer>
+{% endblock %}

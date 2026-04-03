@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Profile — SafeCall Sentinel{% endblock %}
+{% block body %}
+<!-- Mobile Sidebar Toggle -->
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open sidebar">
+  <span class="material-symbols-outlined">menu</span>
+</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><div class="sidebar-brand-icon"><span class="material-symbols-outlined">shield</span></div><div><h1>SafeCall</h1><p>Luminous Sentinel</p></div></div>
+  <nav class="sidebar-nav">
+    <a href="{{ url_for('dashboard') }}" class="sidebar-link"><span class="material-symbols-outlined">dashboard</span>Overview</a>
+    <a href="{{ url_for('sms_analyzer') }}" class="sidebar-link"><span class="material-symbols-outlined">analytics</span>SMS Analyzer</a>
+    <a href="{{ url_for('call_checker') }}" class="sidebar-link"><span class="material-symbols-outlined">phone_forwarded</span>Call Checker</a>
+    <a href="{{ url_for('awareness') }}" class="sidebar-link"><span class="material-symbols-outlined">school</span>Awareness</a>
+    <a href="{{ url_for('scan_history') }}" class="sidebar-link"><span class="material-symbols-outlined">history</span>Scan History</a>
+    <a href="{{ url_for('profile') }}" class="sidebar-link active"><span class="material-symbols-outlined">person</span>Profile</a>
+  </nav>
+  <div class="sidebar-user"><div class="sidebar-avatar">{{ current_user.full_name[0] }}</div><div style="flex:1"><div style="font-size:0.875rem;font-weight:700;color:var(--cyan-light)">{{ current_user.full_name }}</div><div style="font-size:0.625rem;color:var(--cyan);font-weight:800;text-transform:uppercase">Protected ✓</div></div><a href="{{ url_for('logout') }}" style="color:var(--text-secondary)"><span class="material-symbols-outlined" style="font-size:1.2rem">logout</span></a></div>
+</aside>
+
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="main-content" style="margin-left:260px;min-height:100vh;padding:2rem">
+  <div style="max-width:800px;margin:0 auto">
+    <div style="margin-bottom:2rem">
+      <span class="text-label text-cyan" style="font-size:0.6rem;letter-spacing:0.3em">Account Settings</span>
+      <h2 style="font-size:2.2rem;font-weight:800;letter-spacing:-0.03em">Your Profile</h2>
+    </div>
+
+    <!-- Profile Header -->
+    <div class="card" style="background:var(--bg-container-high);margin-bottom:2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap">
+      <div style="width:80px;height:80px;border-radius:50%;background:var(--bg-container-highest);display:flex;align-items:center;justify-content:center;border:3px solid var(--cyan);font-size:2rem;font-weight:900;color:var(--cyan)">{{ current_user.full_name[0] }}</div>
+      <div style="flex:1">
+        <h3 style="font-size:1.5rem;font-weight:700">{{ current_user.full_name }}</h3>
+        <p class="text-muted" style="font-size:0.875rem">{{ current_user.email }}</p>
+        <p style="font-size:0.625rem;color:var(--cyan);font-weight:800;text-transform:uppercase;margin-top:0.25rem">Member since {{ current_user.created_at.strftime('%B %Y') if current_user.created_at else 'N/A' }}</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-3 gap-6" style="margin-bottom:2rem">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(0,229,255,0.12);margin-bottom:1rem"><span class="material-symbols-outlined text-cyan">analytics</span></div>
+        <p class="text-label text-muted" style="margin-bottom:0.25rem">Total Scans</p>
+        <h3 class="stat-value">{{ total_scans }}</h3>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(0,229,255,0.12);margin-bottom:1rem"><span class="material-symbols-outlined text-cyan">phone_forwarded</span></div>
+        <p class="text-label text-muted" style="margin-bottom:0.25rem">Forwarding Checks</p>
+        <h3 class="stat-value">{{ total_checks }}</h3>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(147,0,10,0.15);margin-bottom:1rem"><span class="material-symbols-outlined text-error">notification_important</span></div>
+        <p class="text-label text-muted" style="margin-bottom:0.25rem">Total Alerts</p>
+        <h3 class="stat-value">{{ total_alerts }}</h3>
+      </div>
+    </div>
+
+    <!-- Edit Form -->
+    <div class="card" style="margin-bottom:2rem">
+      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.5rem"><span class="material-symbols-outlined text-cyan">edit</span>Edit Profile</h3>
+      <form method="POST" action="{{ url_for('profile') }}" style="display:flex;flex-direction:column;gap:1.25rem">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="form-group">
+          <label class="form-label" for="full_name">Full Name</label>
+          <input class="form-input" name="full_name" id="full_name" value="{{ current_user.full_name }}" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profile_email">Email (Read-only)</label>
+          <input class="form-input" id="profile_email" value="{{ current_user.email }}" disabled style="opacity:0.5"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phone">Phone Number</label>
+          <input class="form-input" name="phone" id="phone" value="{{ current_user.phone }}"/>
+        </div>
+
+        <div style="border-top:1px solid rgba(59,73,76,0.15);padding-top:1.5rem;margin-top:0.5rem">
+          <h4 style="font-size:0.875rem;font-weight:700;margin-bottom:1rem;color:var(--text-secondary)">Change Password <span class="text-muted" style="font-weight:400;font-size:0.75rem">(optional)</span></h4>
+          <div style="display:flex;flex-direction:column;gap:1rem">
+            <div class="form-group">
+              <label class="form-label" for="current_password">Current Password</label>
+              <input class="form-input" name="current_password" id="current_password" type="password" placeholder="Enter current password"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="new_password">New Password</label>
+              <input class="form-input" name="new_password" id="new_password" type="password" placeholder="Enter new password (min 8 chars, 1 letter, 1 number)"/>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" style="align-self:flex-start;margin-top:0.5rem">
+          <span class="material-symbols-outlined" style="font-size:1.1rem">save</span>Save Changes
+        </button>
+      </form>
+    </div>
+
+    <!-- Danger Zone -->
+    <div class="card" style="border-color:rgba(147,0,10,0.3)">
+      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;color:var(--error);display:flex;align-items:center;gap:0.5rem"><span class="material-symbols-outlined">warning</span>Security Zone</h3>
+      <p class="text-muted" style="font-size:0.875rem;margin-bottom:1rem">Need help with account security? Contact our support team.</p>
+      <a href="{{ url_for('logout') }}" class="btn btn-secondary btn-sm"><span class="material-symbols-outlined" style="font-size:1rem">logout</span>Log Out of All Sessions</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

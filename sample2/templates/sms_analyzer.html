@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}SMS Phishing Analyzer — SafeCall{% endblock %}
+{% block body %}
+<!-- Mobile Sidebar Toggle -->
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open sidebar">
+  <span class="material-symbols-outlined">menu</span>
+</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><div class="sidebar-brand-icon"><span class="material-symbols-outlined">shield</span></div><div><h1>SafeCall</h1><p>Luminous Sentinel</p></div></div>
+  <nav class="sidebar-nav">
+    <a href="{{ url_for('dashboard') }}" class="sidebar-link"><span class="material-symbols-outlined">dashboard</span>Overview</a>
+    <a href="{{ url_for('sms_analyzer') }}" class="sidebar-link active"><span class="material-symbols-outlined">analytics</span>SMS Analyzer</a>
+    <a href="{{ url_for('call_checker') }}" class="sidebar-link"><span class="material-symbols-outlined">phone_forwarded</span>Call Checker</a>
+    <a href="{{ url_for('awareness') }}" class="sidebar-link"><span class="material-symbols-outlined">school</span>Awareness</a>
+    <a href="{{ url_for('scan_history') }}" class="sidebar-link"><span class="material-symbols-outlined">history</span>Scan History</a>
+    <a href="{{ url_for('profile') }}" class="sidebar-link"><span class="material-symbols-outlined">person</span>Profile</a>
+  </nav>
+  <div class="sidebar-user"><div class="sidebar-avatar">{{ current_user.full_name[0] }}</div><div style="flex:1"><div style="font-size:0.875rem;font-weight:700;color:var(--cyan-light)">{{ current_user.full_name }}</div><div style="font-size:0.625rem;color:var(--cyan);font-weight:800;text-transform:uppercase">Protected ✓</div></div><a href="{{ url_for('logout') }}" style="color:var(--text-secondary)"><span class="material-symbols-outlined" style="font-size:1.2rem">logout</span></a></div>
+</aside>
+
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="main-content" style="margin-left:260px;min-height:100vh;padding-top:1.5rem">
+  <div style="max-width:960px;margin:0 auto;padding:0 2rem 3rem">
+    <div style="margin-bottom:2rem">
+      <div style="display:inline-block;padding:0.25rem 0.75rem;border-radius:var(--radius-md);background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.15);margin-bottom:1rem">
+        <span class="text-label text-cyan" style="font-size:0.6rem">System Tool: SMS_ANALYZE_V4</span>
+      </div>
+      <h2 style="font-size:2.5rem;font-weight:900;letter-spacing:-0.03em">SMS Phishing Analyzer</h2>
+      <p class="text-muted" style="font-size:1.1rem;margin-top:0.5rem;max-width:600px">Deconstruct suspicious communication through our deep-packet inspection engine.</p>
+    </div>
+    <div class="sms-analyzer-grid">
+      <div>
+        <form method="POST" action="{{ url_for('sms_analyzer') }}" id="sms-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <div class="card" style="position:relative;overflow:hidden">
+            <div class="pulse-scanner" style="opacity:0.3"></div>
+            <div class="flex justify-between items-center" style="margin-bottom:1.5rem">
+              <label style="font-size:0.875rem;font-weight:700;display:flex;align-items:center;gap:0.5rem"><span class="material-symbols-outlined text-cyan" style="font-size:1.1rem">message</span>RAW MESSAGE PAYLOAD</label>
+              <span style="font-size:0.6rem;font-family:monospace;color:var(--text-muted)">SECURE_TUNNEL_ACTIVE</span>
+            </div>
+            <textarea class="form-input" name="message" id="sms-message" style="min-height:180px" placeholder="Paste any suspicious message here..." required>{{ message_text }}</textarea>
+            <div style="margin-top:1.5rem">
+              <p class="text-label text-muted" style="margin-bottom:0.75rem">Select Context Category</p>
+              <input type="hidden" name="category" id="category-input" value="{{ selected_category }}"/>
+              <div class="flex gap-3" style="flex-wrap:wrap">
+                {% for cat in ['Government','Transactional','Promotional','Service'] %}
+                <div class="cat-pill {{ 'active' if selected_category == cat }}" data-category="{{ cat }}">
+                  <span class="dot" style="background:{% if selected_category == cat %}var(--cyan){% else %}var(--bg-void){% endif %};color:{% if selected_category == cat %}var(--bg-void){% else %}var(--text-muted){% endif %}">{{ cat[0] }}</span>{{ cat }}
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg cyan-box-glow" style="margin-top:2rem;text-transform:uppercase;letter-spacing:0.1em" id="analyze-btn"><span class="material-symbols-outlined">analytics</span>Analyze Message</button>
+          </div>
+        </form>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.5rem">
+        <div class="card">
+          <h4 class="text-label text-muted" style="margin-bottom:1.5rem">Threat Summary</h4>
+          {% if result %}
+          <div style="margin-bottom:1.5rem">
+            <div class="flex justify-between items-center" style="margin-bottom:0.5rem">
+              <span style="font-size:0.75rem;color:var(--text-muted)">RISK INDEX</span>
+              <span style="font-size:1.5rem;font-weight:900;color:{% if result.risk_score > 60 %}var(--error){% elif result.risk_score > 30 %}var(--warning){% else %}#4ade80{% endif %}">{{ result.risk_score }}/100</span>
+            </div>
+            <div class="risk-gauge"><div class="risk-gauge-fill {% if result.risk_score > 60 %}risk-high{% elif result.risk_score > 30 %}risk-medium{% else %}risk-low{% endif %}" style="width:{{ result.risk_score }}%"></div></div>
+          </div>
+          <div style="padding:1rem;border-radius:var(--radius-md);display:flex;justify-content:space-between;align-items:center;{% if result.risk_score > 60 %}background:rgba(147,0,10,0.15);border:1px solid rgba(255,180,171,0.15){% elif result.risk_score > 30 %}background:rgba(254,201,49,0.1);border:1px solid rgba(254,201,49,0.15){% else %}background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.1){% endif %}">
+            <div>
+              <p class="text-label" style="font-size:0.6rem;{% if result.risk_score > 60 %}color:var(--error){% elif result.risk_score > 30 %}color:var(--warning){% else %}color:#4ade80{% endif %}">VERDICT</p>
+              <p style="font-size:1.1rem;font-weight:900;{% if result.risk_score > 60 %}color:var(--error){% elif result.risk_score > 30 %}color:var(--warning){% else %}color:#4ade80{% endif %}">{{ result.verdict }}</p>
+            </div>
+            <span class="material-symbols-outlined icon-filled" style="font-size:2rem;{% if result.risk_score > 60 %}color:var(--error){% elif result.risk_score > 30 %}color:var(--warning){% else %}color:#4ade80{% endif %}">{% if result.risk_score > 60 %}warning{% elif result.risk_score > 30 %}info{% else %}check_circle{% endif %}</span>
+          </div>
+          {% else %}
+          <p class="text-muted text-center" style="padding:2rem 0;font-size:0.875rem">Submit a message to see the analysis results.</p>
+          {% endif %}
+        </div>
+        {% if result and result.keywords %}
+        <div class="card">
+          <h4 class="text-label text-muted" style="margin-bottom:1rem">Detected Keywords</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:0.375rem">
+            {% for kw in result.keywords %}<span class="keyword-tag">{{ kw }}</span>{% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% if result %}
+    <div class="card" style="margin-top:2rem;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;right:0;padding:2rem;opacity:0.04"><span class="material-symbols-outlined" style="font-size:8rem">security</span></div>
+      <div class="result-detail-grid">
+        <div>
+          <h4 style="font-size:0.875rem;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.5rem"><span class="material-symbols-outlined text-cyan">info</span>Sentinel Advice</h4>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:1rem">
+            {% for tip in result.advice %}
+            <li class="flex gap-4" style="align-items:flex-start"><span class="material-symbols-outlined" style="font-size:1.1rem;margin-top:2px;color:{% if loop.first %}var(--error){% else %}var(--cyan){% endif %}">{% if loop.first %}block{% else %}report{% endif %}</span><p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6">{{ tip }}</p></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div style="background:var(--bg-void);padding:1.5rem;border-radius:var(--radius-lg);border:1px solid rgba(59,73,76,0.1)">
+          <h4 class="text-label text-muted" style="margin-bottom:1rem">Metadata Analysis</h4>
+          <div style="display:flex;flex-direction:column;gap:0">
+            {% for key, val in result.metadata.items() %}
+            <div class="flex justify-between items-center" style="padding:0.75rem 0;border-bottom:1px solid rgba(59,73,76,0.08)">
+              <span style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase">{{ key.replace('_',' ') }}</span>
+              <span style="font-size:0.75rem;font-family:monospace;{% if 'days' in val and result.risk_score > 50 %}color:var(--error){% endif %}">{{ val }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

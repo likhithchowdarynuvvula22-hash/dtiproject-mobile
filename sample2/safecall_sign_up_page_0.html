@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign Up - SafeCall Sentinel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#9cf0ff",
+                    "error": "#ffb4ab",
+                    "surface-container": "#1b1f2c",
+                    "on-tertiary-container": "#6f5500",
+                    "primary-container": "#00e5ff",
+                    "on-primary-container": "#00626e",
+                    "surface-variant": "#313442",
+                    "surface-bright": "#353946",
+                    "on-secondary": "#00363d",
+                    "on-secondary-container": "#8ac1cc",
+                    "on-tertiary-fixed-variant": "#594400",
+                    "on-secondary-fixed-variant": "#0d4e57",
+                    "tertiary-container": "#fec931",
+                    "secondary-fixed": "#b3ecf7",
+                    "on-tertiary": "#3e2e00",
+                    "on-surface": "#dfe2f3",
+                    "error-container": "#93000a",
+                    "secondary": "#98d0da",
+                    "inverse-primary": "#006875",
+                    "tertiary-fixed": "#ffdf96",
+                    "primary-fixed-dim": "#00daf3",
+                    "surface-dim": "#0f131f",
+                    "secondary-fixed-dim": "#98d0da",
+                    "outline-variant": "#3b494c",
+                    "on-surface-variant": "#bac9cc",
+                    "on-background": "#dfe2f3",
+                    "surface-container-lowest": "#0a0e1a",
+                    "surface": "#0f131f",
+                    "tertiary": "#ffeac0",
+                    "on-error": "#690005",
+                    "on-primary": "#00363d",
+                    "surface-container-high": "#262a37",
+                    "secondary-container": "#11505a",
+                    "surface-tint": "#00daf3",
+                    "primary": "#c3f5ff",
+                    "on-primary-fixed-variant": "#004f58",
+                    "inverse-on-surface": "#2c303d",
+                    "background": "#0f131f",
+                    "outline": "#849396",
+                    "on-tertiary-fixed": "#251a00",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-fixed": "#001f24",
+                    "tertiary-fixed-dim": "#f3bf26",
+                    "surface-container-low": "#171b28",
+                    "surface-container-highest": "#313442",
+                    "inverse-surface": "#dfe2f3",
+                    "on-secondary-fixed": "#001f24"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.375rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(23, 27, 40, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .cyan-glow {
+            box-shadow: 0 0 12px rgba(0, 229, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0a0e1a]/60 backdrop-blur-xl">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-[#c3f5ff] font-headline">SafeCall</div>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors transition-all active:scale-95 duration-200 ease-in-out" href="index.html">Home</a>
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors transition-all active:scale-95 duration-200 ease-in-out" href="safecall_dashboard_3.html">Dashboard</a>
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors transition-all active:scale-95 duration-200 ease-in-out" href="safecall_awareness__safety_tips_5.html">Awareness</a>
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors transition-all active:scale-95 duration-200 ease-in-out" href="safecall_login_page_6.html">Login</a>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded font-semibold transition-all scale-95 hover:scale-100 cyan-glow duration-200 ease-in-out">
+                Get Protected
+            </button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center pt-24 pb-12 px-6 relative overflow-hidden">
+<!-- Aesthetic background elements -->
+<div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary-container/5 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-secondary-container/10 rounded-full blur-[120px]"></div>
+<div class="w-full max-w-md relative z-10">
+<!-- Registration Card -->
+<div class="glass-panel border border-outline-variant/15 p-8 md:p-10 rounded-xl shadow-2xl">
+<div class="mb-8 space-y-2">
+<span class="text-primary-fixed-dim text-[10px] uppercase tracking-[0.2em] font-bold block">Secure Access</span>
+<h1 class="text-3xl font-extrabold tracking-tight text-on-surface font-headline">Create Your Account</h1>
+<p class="text-on-surface-variant text-sm">Join the network of protected communication.</p>
+</div>
+<form class="space-y-6">
+<!-- Full Name -->
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant ml-1">Full Name</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container/30 transition-all placeholder:text-outline/50" placeholder="John Doe" type="text"/>
+</div>
+</div>
+<!-- Phone Number -->
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant ml-1">Phone Number</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container/30 transition-all placeholder:text-outline/50" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<p class="text-[10px] text-on-secondary-container/70 flex items-center gap-1 ml-1">
+<span class="material-symbols-outlined text-[12px]">info</span>
+                            Used to check call forwarding
+                        </p>
+</div>
+<!-- Email ID -->
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant ml-1">Email ID</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container/30 transition-all placeholder:text-outline/50" placeholder="name@company.com" type="email"/>
+</div>
+<p class="text-[10px] text-on-secondary-container/70 flex items-center gap-1 ml-1">
+<span class="material-symbols-outlined text-[12px]">verified_user</span>
+                            OTP verification sent here
+                        </p>
+</div>
+<!-- Password -->
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant ml-1">Password</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container/30 transition-all placeholder:text-outline/50" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary-container transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- CTA Button -->
+<button class="w-full bg-primary-container text-on-primary-container py-4 rounded font-bold text-sm uppercase tracking-widest cyan-glow hover:brightness-110 transition-all active:scale-[0.98] mt-4" type="submit">
+                        Create Account
+                    </button>
+</form>
+<!-- Login Link -->
+<div class="mt-8 text-center">
+<p class="text-on-surface-variant text-sm">
+                        Already have an account? 
+                        <a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors transition-all active:scale-95 duration-200 ease-in-out" href="safecall_login_page_6.html">Login</a>
+</p>
+</div>
+<!-- Security Badge -->
+<div class="mt-8 flex justify-center">
+<div class="bg-surface-container-high/40 px-4 py-2 rounded-full flex items-center gap-2 border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary-fixed-dim text-sm" data-icon="lock" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="text-[10px] font-medium text-on-surface-variant tracking-tight">Your data is encrypted and secure.</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#0a0e1a] w-full py-12 border-t border-[#3b494c]/15">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto space-y-6 md:space-y-0">
+<div class="flex flex-col items-center md:items-start space-y-2">
+<div class="text-lg font-bold text-[#c3f5ff]">SafeCall Sentinel</div>
+<p class="text-[#bac9cc] font-['Inter'] text-sm leading-relaxed">© 2024 SafeCall Sentinel. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors font-['Inter'] text-sm leading-relaxed opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors font-['Inter'] text-sm leading-relaxed opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors font-['Inter'] text-sm leading-relaxed opacity-80 hover:opacity-100" href="#">Security Whitepaper</a>
+<a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors font-['Inter'] text-sm leading-relaxed opacity-80 hover:opacity-100" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+</body></html>

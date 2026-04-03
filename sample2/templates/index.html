@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block title %}SafeCall | Advanced Mobile Security{% endblock %}
+{% block body %}
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="{{ url_for('home') }}" class="navbar-brand">SafeCall</a>
+    <div class="navbar-links">
+      <a href="{{ url_for('home') }}" class="active">Home</a>
+      <a href="{{ url_for('awareness') }}">Awareness</a>
+      {% if current_user.is_authenticated %}
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('sms_analyzer') }}">SMS Analyzer</a>
+      {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+      {% endif %}
+    </div>
+    <div class="flex gap-3 items-center">
+      {% if current_user.is_authenticated %}
+      <a href="{{ url_for('profile') }}" class="btn btn-secondary btn-sm"><span class="material-symbols-outlined" style="font-size:1rem">person</span>{{ current_user.full_name.split()[0] }}</a>
+      <a href="{{ url_for('logout') }}" class="btn btn-primary btn-sm">Logout</a>
+      {% else %}
+      <a href="{{ url_for('signup') }}" class="btn btn-primary">Get Protected</a>
+      {% endif %}
+      <button class="mobile-menu-btn" aria-label="Menu"><span class="material-symbols-outlined">menu</span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" style="background:var(--bg-void)">
+  <div class="ambient-blob" style="width:600px;height:600px;background:var(--cyan);top:-10%;right:-10%"></div>
+  <div class="ambient-blob" style="width:400px;height:400px;background:var(--secondary-container);bottom:-5%;left:-5%;opacity:0.1"></div>
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot animate-pulse"></span>
+        <span class="text-label" style="font-size:0.6rem;color:var(--text-secondary)">Live Threat Monitoring</span>
+      </div>
+      <h1 class="text-display">Protect Your <span class="text-cyan cyan-glow">Phone.</span><br/>Protect Your <span class="text-cyan cyan-glow">Money.</span></h1>
+      <p style="font-size:1.2rem;color:var(--text-secondary);max-width:480px;margin:1.5rem 0 2rem;line-height:1.7">SafeCall helps you detect call forwarding, stop OTP fraud, and identify phishing messages before scammers strike.</p>
+      <div class="flex gap-4" style="flex-wrap:wrap">
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('call_checker') }}" class="btn btn-primary btn-lg">Check My Number Now</a>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary btn-lg">View Dashboard</a>
+        {% else %}
+        <a href="{{ url_for('signup') }}" class="btn btn-primary btn-lg">Check My Number Now</a>
+        <a href="{{ url_for('login') }}" class="btn btn-secondary btn-lg">View Demo</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="md-hide" style="position:relative">
+      <div class="glass rounded-xl" style="padding:2rem">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-n82GYV_8agR0DUOtV0c5gmBWyeVid9J4km8n5L62VBeU8tUuOovYri-NtW3tNIhRibEDCqrYVMlCUGND9OyXgCGWjfkbQaw_kVUHWViGgaNJWaOV0_yVNugrPEIBxAvj8kcOgzvv812so2uyszx3OLGPuz_S56QZle5OxAYuikbVGXQGm-ZVvzoCpPugcIpuxbEST4NUK2PRE2F-NTN6oB2mNJ_DQhCg2b0FkXP4b3KhDqE1jX7CaqGf6uv7Kraog0pyolIHMQ9Q" alt="Security Dashboard" style="border-radius:var(--radius-md);opacity:0.9"/>
+      </div>
+      <div class="hero-status-badge">
+        <div style="padding:0.5rem;background:rgba(0,229,255,0.15);border-radius:var(--radius-md)">
+          <span class="material-symbols-outlined text-cyan icon-filled">verified_user</span>
+        </div>
+        <div>
+          <div class="text-label" style="font-size:0.6rem">Device Status</div>
+          <div style="font-size:0.875rem;font-weight:700;color:var(--cyan-light)">Fully Protected</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section style="background:var(--bg-container-low);padding:3rem 0">
+  <div class="container flex justify-between items-center" style="flex-wrap:wrap;gap:2rem">
+    <div style="text-align:center;flex:1">
+      <div style="font-size:2.5rem;font-weight:900" data-count="2.4" data-suffix="M">0</div>
+      <div class="text-label text-muted">Scams Blocked</div>
+    </div>
+    <div style="width:1px;height:48px;background:rgba(59,73,76,0.2)" class="md-hide"></div>
+    <div style="text-align:center;flex:1">
+      <div style="font-size:2.5rem;font-weight:900;color:var(--cyan)" class="cyan-glow" data-count="98.7" data-suffix="%">0</div>
+      <div class="text-label text-muted">Accuracy Rate</div>
+    </div>
+    <div style="width:1px;height:48px;background:rgba(59,73,76,0.2)" class="md-hide"></div>
+    <div style="text-align:center;flex:1">
+      <div style="font-size:2.5rem;font-weight:900" data-count="50" data-suffix="K+">0</div>
+      <div class="text-label text-muted">Users Protected</div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section style="padding:6rem 0;background:var(--bg-surface)">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:4rem">
+      <p class="text-label text-cyan" style="margin-bottom:0.5rem">Next-Gen Protection</p>
+      <h2 class="text-headline">Enterprise-Grade Defense for Everyone</h2>
+    </div>
+    <div class="grid grid-3 gap-8">
+      <div class="feature-card fade-in-up">
+        <div class="feature-icon"><span class="material-symbols-outlined text-cyan icon-filled" style="font-size:2rem">shield</span></div>
+        <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:0.75rem">Real-Time Scam Detection</h3>
+        <p class="text-muted">Our AI-driven engine analyzes incoming call patterns and SMS content instantly to flag fraudulent activity before you even pick up.</p>
+      </div>
+      <div class="feature-card fade-in-up" style="animation-delay:0.15s">
+        <div class="feature-icon"><span class="material-symbols-outlined text-cyan icon-filled" style="font-size:2rem">phone_iphone</span></div>
+        <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:0.75rem">Call Forwarding Monitor</h3>
+        <p class="text-muted">Stop silent eavesdropping. SafeCall monitors your network settings to ensure calls aren't being surreptitiously redirected.</p>
+      </div>
+      <div class="feature-card fade-in-up" style="animation-delay:0.3s">
+        <div class="feature-icon"><span class="material-symbols-outlined text-cyan icon-filled" style="font-size:2rem">verified</span></div>
+        <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:0.75rem">Government Message Verification</h3>
+        <p class="text-muted">Never question a tax or legal notice again. Our cryptographic verification ensures messages from authorities are legitimate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Us -->
+<section style="padding:6rem 0;background:var(--bg-void);overflow:hidden">
+  <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center">
+    <div class="md-hide" style="position:relative">
+      <div style="position:absolute;top:-2rem;left:-2rem;width:100%;aspect-ratio:1;background:linear-gradient(135deg,rgba(0,229,255,0.12),transparent);border-radius:50%" class="animate-pulse"></div>
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9A69yiqdMtZ9ZFJeG9kmdkzuoQifbe_RcL1Zew92XXf3Fbe9wVoPNv2cptQIUUVwvqBb630_oISF4oChBfWvEYn_kvE8PKp08Vqf2fOpm7XX0wfsfeg-Y2VgrOch8JL1wbcteTD4O_1w-dzL0HYzAEYgd_1KYW3EgVsM0A57cex4Tlrzh7EMRwvCal-IRSnB5RXO-8rdqStZYDheFvm8O-Bz1HXPOb7Ev74Tkkkd12ZOOfVw5jP_EXpvhAXIffmXFCRYqW977Xep4" alt="Secure Data" style="position:relative;z-index:10;border-radius:var(--radius-xl);box-shadow:0 25px 50px -12px rgba(0,0,0,0.5)"/>
+    </div>
+    <div>
+      <p class="text-label text-cyan" style="letter-spacing:0.3em;margin-bottom:0.75rem">Why Choose Us</p>
+      <h2 style="font-size:2.2rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:1rem">The Silent Sentinel in Your Pocket</h2>
+      <p class="text-muted" style="font-size:1.1rem;margin-bottom:2rem">Modern fraud doesn't look like a computer virus; it looks like a text from your bank. SafeCall operates at the network level to identify digital fingerprints of scammers.</p>
+      <div style="display:flex;flex-direction:column;gap:1rem">
+        {% for item in ["Zero-latency background scanning", "Global database of blacklisted numbers", "End-to-end encrypted notification log"] %}
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-cyan">check_circle</span>
+          <span>{{ item }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div style="font-size:1.2rem;font-weight:700;color:var(--cyan-light)">SafeCall</div>
+    <div class="flex gap-8">
+      <a href="#">Terms</a><a href="#">Privacy</a><a href="#">Twitter</a><a href="#">LinkedIn</a>
+    </div>
+    <div style="font-size:0.875rem;color:var(--text-secondary)">© 2026 SafeCall. All rights reserved.</div>
+  </div>
+</footer>
+{% endblock %}

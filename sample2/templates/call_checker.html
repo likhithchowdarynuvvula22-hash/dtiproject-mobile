@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}Call Forwarding Checker — SafeCall{% endblock %}
+{% block body %}
+<!-- Mobile Sidebar Toggle -->
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open sidebar">
+  <span class="material-symbols-outlined">menu</span>
+</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><div class="sidebar-brand-icon"><span class="material-symbols-outlined">shield</span></div><div><h1>SafeCall</h1><p>Luminous Sentinel</p></div></div>
+  <nav class="sidebar-nav">
+    <a href="{{ url_for('dashboard') }}" class="sidebar-link"><span class="material-symbols-outlined">dashboard</span>Overview</a>
+    <a href="{{ url_for('sms_analyzer') }}" class="sidebar-link"><span class="material-symbols-outlined">analytics</span>SMS Analyzer</a>
+    <a href="{{ url_for('call_checker') }}" class="sidebar-link active"><span class="material-symbols-outlined">phone_forwarded</span>Call Checker</a>
+    <a href="{{ url_for('awareness') }}" class="sidebar-link"><span class="material-symbols-outlined">school</span>Awareness</a>
+    <a href="{{ url_for('scan_history') }}" class="sidebar-link"><span class="material-symbols-outlined">history</span>Scan History</a>
+    <a href="{{ url_for('profile') }}" class="sidebar-link"><span class="material-symbols-outlined">person</span>Profile</a>
+  </nav>
+  <div class="sidebar-user"><div class="sidebar-avatar">{{ current_user.full_name[0] }}</div><div style="flex:1"><div style="font-size:0.875rem;font-weight:700;color:var(--cyan-light)">{{ current_user.full_name }}</div><div style="font-size:0.625rem;color:var(--cyan);font-weight:800;text-transform:uppercase">Protected ✓</div></div><a href="{{ url_for('logout') }}" style="color:var(--text-secondary)"><span class="material-symbols-outlined" style="font-size:1.2rem">logout</span></a></div>
+</aside>
+
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="main-content" style="margin-left:260px;min-height:100vh;padding:1.5rem 2rem 3rem">
+  <div style="max-width:960px;margin:0 auto">
+    <div style="margin-bottom:2rem">
+      <span class="text-label" style="color:var(--secondary);font-size:0.6rem;letter-spacing:0.3em">Detection Module v2.4</span>
+      <h2 style="font-size:2.2rem;font-weight:800;color:var(--cyan-light);letter-spacing:-0.02em;margin-top:0.25rem">Call Forwarding Checker</h2>
+      <p class="text-muted" style="font-size:1.1rem">Detect if your calls are being secretly redirected</p>
+    </div>
+    <div class="call-checker-grid">
+      <!-- Status Card -->
+      <div>
+        <div class="card" style="position:relative;overflow:hidden">
+          <div class="ambient-blob" style="width:250px;height:250px;top:-6rem;right:-6rem;{% if check_result and not check_result.is_safe %}background:var(--error){% else %}background:#4ade80{% endif %}"></div>
+          <div style="position:relative;z-index:10">
+            <div class="flex items-center gap-4" style="margin-bottom:2rem">
+              <div style="padding:0.75rem;border-radius:var(--radius-lg);{% if check_result and not check_result.is_safe %}background:rgba(239,68,68,0.15){% else %}background:rgba(74,222,128,0.15){% endif %}">
+                <span class="material-symbols-outlined icon-filled" style="font-size:2rem;{% if check_result and not check_result.is_safe %}color:#f87171{% else %}color:#4ade80{% endif %}">{% if check_result and not check_result.is_safe %}gpp_bad{% else %}verified_user{% endif %}</span>
+              </div>
+              <div>
+                <h3 style="font-weight:700;font-size:1.2rem;{% if check_result and not check_result.is_safe %}color:#f87171{% else %}color:#4ade80{% endif %}">{% if check_result %}{{ check_result.status }}{% elif last_check %}{{ last_check.overall_status }}{% else %}No Check Performed{% endif %}</h3>
+                <p class="text-muted" style="font-size:0.8rem">{% if last_check %}Last checked: {{ last_check.checked_at.strftime('%I:%M %p') }}{% else %}Run a scan to check{% endif %}</p>
+              </div>
+            </div>
+            <form method="POST" action="{{ url_for('call_checker') }}">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+              <div style="background:var(--bg-void);border-radius:var(--radius-md);padding:1.5rem;text-align:center;border:1px solid rgba(59,73,76,0.12);margin-bottom:1.5rem">
+                <p class="text-label text-muted" style="margin-bottom:0.5rem;font-size:0.6rem;letter-spacing:0.15em">Active Line Monitoring</p>
+                <input class="form-input" name="phone" value="{{ phone_number }}" placeholder="+1 (555) 000-0000" style="text-align:center;font-size:1.3rem;font-family:monospace;letter-spacing:0.1em;font-weight:700;color:var(--cyan-light);border:none;background:transparent" required/>
+                <div class="flex justify-center gap-2" style="margin-top:1rem">
+                  <div style="height:4px;width:32px;border-radius:2px;{% if check_result %}{% if check_result.is_safe %}background:#4ade80{% else %}background:var(--error){% endif %}{% else %}background:rgba(59,73,76,0.3){% endif %}" class="{% if check_result and check_result.is_safe %}animate-pulse{% endif %}"></div>
+                  <div style="height:4px;width:32px;border-radius:2px;background:rgba(59,73,76,0.2)"></div>
+                  <div style="height:4px;width:32px;border-radius:2px;background:rgba(59,73,76,0.2)"></div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block btn-lg cyan-box-glow">
+                <span class="material-symbols-outlined">radar</span>Run Security Scan
+              </button>
+            </form>
+            {% if check_result or last_check %}
+            {% set r = check_result or {'voice': last_check.voice_status, 'data': last_check.data_status, 'sms': last_check.sms_status} %}
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem;text-align:center">
+              {% for label, val in [('Voice', r.voice), ('Data', r.data), ('SMS', r.sms)] %}
+              <div {% if not loop.first %}style="border-left:1px solid rgba(59,73,76,0.15)"{% endif %}>
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem">{{ label }}</p>
+                <p style="font-size:0.8rem;font-weight:700;text-transform:uppercase;color:{% if val == 'Active' %}var(--error){% else %}#4ade80{% endif %}">{{ val }}</p>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        <!-- Warning -->
+        <div style="margin-top:1.5rem;padding:1.5rem;border-radius:var(--radius-lg);background:rgba(147,0,10,0.1);border:1px solid rgba(147,0,10,0.2);display:flex;gap:1rem;align-items:flex-start">
+          <span class="material-symbols-outlined text-error" style="font-size:1.5rem;margin-top:2px">warning</span>
+          <div><h4 style="color:var(--error);font-weight:700;margin-bottom:0.25rem">Security Advisory</h4><p class="text-muted" style="font-size:0.875rem;line-height:1.6">Scammers trick you into dialing codes that forward your calls. Never dial codes sent by strangers. Verify manually if you suspect unusual activity.</p></div>
+        </div>
+      </div>
+      <!-- Manual Check Guide -->
+      <div class="card" style="background:var(--bg-container-high)">
+        <h3 style="font-size:1.2rem;font-weight:700;color:var(--cyan-muted);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.5rem"><span class="material-symbols-outlined">terminal</span>How to Check Manually</h3>
+        <div style="display:flex;flex-direction:column;gap:2rem">
+          {% for step in [
+            {'num':'1','title':'Open your Phone Dialer','desc':'Navigate to your standard calling application.'},
+            {'num':'2','title':'Dial *#21# to check status','code':'*#21#','color':'var(--cyan)'},
+            {'num':'3','title':'Dial ##002# to disable all','code':'##002#','color':'var(--error)'}
+          ] %}
+          <div style="padding-left:2rem;position:relative">
+            <div style="position:absolute;left:0;top:2px;width:20px;height:20px;background:rgba(0,229,255,0.12);border:1px solid var(--cyan);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.625rem;font-weight:700;color:var(--cyan)">{{ step.num }}</div>
+            <p style="font-weight:600;margin-bottom:0.25rem">{{ step.title }}</p>
+            {% if step.code %}
+            <div style="background:var(--bg-void);border-radius:var(--radius-md);padding:0.75rem;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(59,73,76,0.2);margin-top:0.5rem">
+              <code style="color:{{ step.color }};font-size:1.1rem;font-weight:700">{{ step.code }}</code>
+              <button class="copy-btn btn btn-sm btn-secondary" data-code="{{ step.code }}" type="button" style="padding:0.25rem 0.5rem"><span class="material-symbols-outlined" style="font-size:0.875rem">content_copy</span> Copy</button>
+            </div>
+            {% else %}
+            <p class="text-muted" style="font-size:0.875rem">{{ step.desc }}</p>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% if check_result or last_check %}
+        {% set score = check_result.integrity_score if check_result else last_check.integrity_score %}
+        <div style="margin-top:2.5rem">
+          <div class="flex justify-between items-center" style="margin-bottom:0.5rem">
+            <span style="font-size:0.75rem;color:var(--text-muted)">Line Integrity Score</span>
+            <span style="font-size:0.75rem;color:var(--cyan-dim)">{{ score }}% Secure</span>
+          </div>
+          <div class="risk-gauge"><div class="stat-bar-fill" style="width:{{ score }}%;height:100%;background:linear-gradient(90deg,var(--cyan),var(--cyan-dim));box-shadow:0 0 8px rgba(0,229,255,0.5);border-radius:4px"></div></div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <!-- Bottom Stats -->
+    <div class="grid grid-3 gap-6" style="margin-top:2rem">
+      {% for item in [('Network Encryption','AES-256','lock'),('Signal Interception','None Detected','settings_input_antenna'),('Device Masking','Active','masks')] %}
+      <div class="card" style="background:rgba(23,27,40,0.5)">
+        <p class="text-label text-muted" style="margin-bottom:1rem">{{ item[0] }}</p>
+        <div class="flex justify-between items-center">
+          <span style="font-size:1.3rem;font-weight:700">{{ item[1] }}</span>
+          <span class="material-symbols-outlined" style="font-size:2.5rem;color:var(--cyan);opacity:0.25">{{ item[2] }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
